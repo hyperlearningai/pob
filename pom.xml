@@ -46,4 +46,55 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    <!-- Child Modules -->
+    <modules>
+    
+    </modules>
+    
+    <!-- Project Build Configuration -->
+    <build>
+    
+        <!-- Project Resources -->
+        <resources>
+        
+            <!-- Apply filtering to VERSION.txt (Spring Boot @ placeholders)  -->
+            <resource>
+                <directory>${basedir}</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>VERSION.txt</include>
+                </includes>
+            </resource>
+            
+        </resources>
+        
+        <!-- Project Plugins -->
+        <plugins>
+        
+            <!-- Compiler Management -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            
+            <!-- Execute Unit Tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <additionalClasspathElements>
+                        <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
+                        <additionalClasspathElement>${basedir}/data</additionalClasspathElement>
+                    </additionalClasspathElements>
+                </configuration>
+            </plugin>
+        
+        </plugins>
+    
+    </build>
+    
 </project>
