@@ -12,7 +12,7 @@
     <url>https://hyperlearning.ai</url>
     <organization>
         <name>HyperLearning AI</name>
-        <url>https://hyperlearning.ai</url>
+        <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
     </organization>
     <developers>
         <developer>
@@ -34,7 +34,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.3</version>
+        <version>2.5.2</version>
     </parent>
     
     <!-- Properties and Dependency Versions -->
@@ -46,9 +46,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
+    <!-- Project Dependency Management -->
+    <dependencyManagement>
+    
+    
+    </dependencyManagement>
+    
     <!-- Child Modules -->
     <modules>
-    
+		<module>pob-model</module>
     </modules>
     
     <!-- Project Build Configuration -->
