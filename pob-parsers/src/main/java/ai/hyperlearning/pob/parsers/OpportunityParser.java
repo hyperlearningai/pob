@@ -2,10 +2,11 @@ package ai.hyperlearning.pob.parsers;
 
 import java.util.Set;
 
+import ai.hyperlearning.pob.model.Framework;
 import ai.hyperlearning.pob.model.Opportunity;
 
 /**
- * Opportunity Parser Interface
+ * Opportunity Parser Abstract Class
  *
  * @author jillurquddus
  * @since 0.0.1
@@ -13,16 +14,16 @@ import ai.hyperlearning.pob.model.Opportunity;
 
 public abstract class OpportunityParser {
 	
-	private String frameworkId;
+	private Framework framework;
 	
-	protected OpportunityParser(String frameworkId) {
-		this.frameworkId = frameworkId;
+	protected OpportunityParser(Framework framework) {
+		this.framework = framework;
 	}
 	
 	public abstract Set<Opportunity> parse();
 	
-	public String getFrameworkId() {
-		return frameworkId;
+	public Framework getFramework() {
+		return framework;
 	}
 
 }

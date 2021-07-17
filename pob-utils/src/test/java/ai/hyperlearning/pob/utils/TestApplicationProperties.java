@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * POB Test Application Properties
+ * Test POB Application Properties
  *
  * @author jillurquddus
  * @since 0.0.1

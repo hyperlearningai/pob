@@ -14,16 +14,16 @@ public class Opportunity implements Serializable {
 
 	private static final long serialVersionUID = 4837851528332532756L;
 	private String uri;
-	private String frameworkId;
+	private Framework framework;
 	private String title;
 	private String buyer;
 	private Date datePublished;
 	private Date dateClosing;
 	
-	public Opportunity(String uri, String frameworkId, String buyer, 
+	public Opportunity(String uri, Framework framework, String buyer, 
 			String title, Date datePublished, Date dateClosing) {
 		this.uri = uri;
-		this.frameworkId = frameworkId;
+		this.framework = framework;
 		this.buyer = buyer;
 		this.title = title;
 		this.datePublished = datePublished;
@@ -38,12 +38,12 @@ public class Opportunity implements Serializable {
 		this.uri = uri;
 	}
 
-	public String getFrameworkId() {
-		return frameworkId;
+	public Framework getFramework() {
+		return framework;
 	}
 
-	public void setFrameworkId(String frameworkId) {
-		this.frameworkId = frameworkId;
+	public void setFramework(Framework framework) {
+		this.framework = framework;
 	}
 
 	public String getBuyer() {
@@ -82,8 +82,7 @@ public class Opportunity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((frameworkId == null) ? 0 : 
-			frameworkId.hashCode());
+		result = prime * result + ((framework == null) ? 0 : framework.hashCode());
 		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
@@ -97,10 +96,10 @@ public class Opportunity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Opportunity other = (Opportunity) obj;
-		if (frameworkId == null) {
-			if (other.frameworkId != null)
+		if (framework == null) {
+			if (other.framework != null)
 				return false;
-		} else if (!frameworkId.equals(other.frameworkId))
+		} else if (!framework.equals(other.framework))
 			return false;
 		if (uri == null) {
 			if (other.uri != null)
@@ -114,7 +113,7 @@ public class Opportunity implements Serializable {
 	public String toString() {
 		return "Opportunity ["
 				+ "uri=" + uri + ", "
-				+ "frameworkId=" + frameworkId + ", "
+				+ "frameworkId=" + framework.getId() + ", "
 				+ "buyer=" + buyer + ", "
 				+ "title=" + title + ", "
 				+ "datePublished=" + datePublished + ", "

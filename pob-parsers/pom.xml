@@ -1,22 +1,22 @@
 <?xml version="1.0"?>
 <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<!-- Parent Project -->
-	<parent>
-    	<groupId>ai.hyperlearning.pob</groupId>
-    	<artifactId>pob</artifactId>
-    	<version>${revision}</version>
-  	</parent>
-  	
-  	<!-- Module Metadata -->
-  	<artifactId>pob-parsers</artifactId>
-  	<name>pob-parsers</name>
-  	<packaging>jar</packaging>
-  	<description>POB - Opportunity Parsers</description>
-  	<url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
-  	<organization>
+    <modelVersion>4.0.0</modelVersion>
+    
+    <!-- Parent Project -->
+    <parent>
+        <groupId>ai.hyperlearning.pob</groupId>
+        <artifactId>pob</artifactId>
+        <version>${revision}</version>
+    </parent>
+    
+    <!-- Module Metadata -->
+    <artifactId>pob-parsers</artifactId>
+    <name>pob-parsers</name>
+    <packaging>jar</packaging>
+    <description>POB - Opportunity Parsers</description>
+    <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
+    <organization>
         <name>HyperLearning AI</name>
         <url>https://hyperlearning.ai</url>
     </organization>
@@ -35,27 +35,27 @@
             <timezone>Europe/London</timezone>
         </developer>
     </developers>
-  	
-  	<!-- Module Properties -->
-  	<properties>
+    
+    <!-- Module Properties -->
+    <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
     <!-- Module Dependencies -->
     <dependencies>
     
-    	<!-- JSoup -->
-    	<dependency>
-    		<groupId>org.jsoup</groupId>
-    		<artifactId>jsoup</artifactId>
-		</dependency>
-		
-		<!-- POB -->
-		<dependency>
-    		<groupId>ai.hyperlearning.pob</groupId>
-    		<artifactId>pob-model</artifactId>
-		</dependency>
+        <!-- JSoup -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+        </dependency>
+        
+        <!-- POB -->
+        <dependency>
+            <groupId>ai.hyperlearning.pob</groupId>
+            <artifactId>pob-model</artifactId>
+        </dependency>
     
     </dependencies>
-  	
+    
 </project>

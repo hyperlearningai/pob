@@ -15,8 +15,8 @@ application:
         - spring
         - spring-boot
     frameworks:
-        -   id: dos
-            name: 'Digital Outcomes and Specialists Framework'
-            baseUrl: https://www.digitalmarketplace.service.gov.uk
-            opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities
-            parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.DosLatestOpportunityParser 
+        - id: dos
+          name: 'Digital Outcomes and Specialists Framework'
+          baseUrl: https://www.digitalmarketplace.service.gov.uk
+          opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities
+          parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 

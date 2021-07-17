@@ -125,7 +125,7 @@
         <module>pob-common</module>
 		<module>pob-model</module>
 		<module>pob-utils</module>
-    	<module>pop-parsers</module>
+        <module>pob-parsers</module>
     </modules>
     
     <!-- Project Build Configuration -->
@@ -134,7 +134,7 @@
         <!-- Project Resources -->
         <resources>
         
-            <!-- Apply filtering to VERSION.txt (Spring Boot @ placeholders)  -->
+            <!-- Build Version  -->
             <resource>
                 <directory>${basedir}</directory>
                 <filtering>true</filtering>
