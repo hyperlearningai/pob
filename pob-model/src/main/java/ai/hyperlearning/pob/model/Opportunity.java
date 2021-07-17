@@ -13,37 +13,37 @@ import java.util.Date;
 public class Opportunity implements Serializable {
 
 	private static final long serialVersionUID = 4837851528332532756L;
-	private int id;
-	private Framework framework;
-	private String buyer;
+	private String uri;
+	private String frameworkId;
 	private String title;
+	private String buyer;
 	private Date datePublished;
 	private Date dateClosing;
 	
-	public Opportunity(int id, Framework framework, String buyer, 
+	public Opportunity(String uri, String frameworkId, String buyer, 
 			String title, Date datePublished, Date dateClosing) {
-		this.id = id;
-		this.framework = framework;
+		this.uri = uri;
+		this.frameworkId = frameworkId;
 		this.buyer = buyer;
 		this.title = title;
 		this.datePublished = datePublished;
 		this.dateClosing = dateClosing;
 	}
 
-	public int getId() {
-		return id;
+	public String getUri() {
+		return uri;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setUri(String uri) {
+		this.uri = uri;
 	}
 
-	public Framework getFramework() {
-		return framework;
+	public String getFrameworkId() {
+		return frameworkId;
 	}
 
-	public void setFramework(Framework framework) {
-		this.framework = framework;
+	public void setFrameworkId(String frameworkId) {
+		this.frameworkId = frameworkId;
 	}
 
 	public String getBuyer() {
@@ -82,9 +82,9 @@ public class Opportunity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((framework == null) ? 0 : 
-			framework.hashCode());
-		result = prime * result + id;
+		result = prime * result + ((frameworkId == null) ? 0 : 
+			frameworkId.hashCode());
+		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
 		return result;
 	}
 
@@ -97,12 +97,15 @@ public class Opportunity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Opportunity other = (Opportunity) obj;
-		if (framework == null) {
-			if (other.framework != null)
+		if (frameworkId == null) {
+			if (other.frameworkId != null)
 				return false;
-		} else if (!framework.equals(other.framework))
+		} else if (!frameworkId.equals(other.frameworkId))
 			return false;
-		if (id != other.id)
+		if (uri == null) {
+			if (other.uri != null)
+				return false;
+		} else if (!uri.equals(other.uri))
 			return false;
 		return true;
 	}
@@ -110,8 +113,8 @@ public class Opportunity implements Serializable {
 	@Override
 	public String toString() {
 		return "Opportunity ["
-				+ "id=" + id + ", "
-				+ "framework=" + framework + ", "
+				+ "uri=" + uri + ", "
+				+ "frameworkId=" + frameworkId + ", "
 				+ "buyer=" + buyer + ", "
 				+ "title=" + title + ", "
 				+ "datePublished=" + datePublished + ", "

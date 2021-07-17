@@ -5,7 +5,7 @@
     <!-- Project Metadata -->
     <groupId>ai.hyperlearning.pob</groupId>
     <artifactId>pob</artifactId>
-    <version>0.0.1</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
     <name>pob</name>
     <description>Public Opportunities Bot (POB)</description>
@@ -40,21 +40,92 @@
     <!-- Properties and Dependency Versions -->
     <properties>
         <build.directory>${basedir}/builds/pob-${project.version}</build.directory>
+        <commons-io.version>2.11.0</commons-io.version>
+        <conf.application-properties.filename>pob.yaml</conf.application-properties.filename>
+        <conf.application-logging.filename>logback-spring.xml</conf.application-logging.filename>
         <java.version>11</java.version>
+        <jsoup.version>1.14.1</jsoup.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>0.0.1</revision>
     </properties>
+    
+    <!-- Project Dependencies -->
+    <dependencies>
+    
+        <!-- JUnit -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Spring Boot Starter Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    
+    </dependencies>
     
     <!-- Project Dependency Management -->
     <dependencyManagement>
-    
+    	<dependencies>
+    	
+    	    <!-- Apache Commons IO -->
+	        <dependency>
+	            <groupId>commons-io</groupId>
+	            <artifactId>commons-io</artifactId>
+	            <version>${commons-io.version}</version>
+	        </dependency>
+    	
+    		<!-- JSoup -->
+    		<dependency>
+    			<groupId>org.jsoup</groupId>
+    			<artifactId>jsoup</artifactId>
+    			<version>${jsoup.version}</version>
+			</dependency>
+			
+			<!-- POB -->
+			<dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-common</artifactId>
+                <version>${revision}</version>
+            </dependency>
+			<dependency>
+    			<groupId>ai.hyperlearning.pob</groupId>
+    			<artifactId>pob-model</artifactId>
+    			<version>${revision}</version>
+			</dependency>
+			<dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-utils</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-parsers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+    	
+    	</dependencies>
     
     </dependencyManagement>
     
     <!-- Child Modules -->
     <modules>
+        <module>pob-common</module>
 		<module>pob-model</module>
+		<module>pob-utils</module>
+    	<module>pop-parsers</module>
     </modules>
     
     <!-- Project Build Configuration -->
@@ -84,18 +155,6 @@
                 <configuration>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
-                </configuration>
-            </plugin>
-            
-            <!-- Execute Unit Tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <additionalClasspathElements>
-                        <additionalClasspathElement>${basedir}/conf</additionalClasspathElement>
-                        <additionalClasspathElement>${basedir}/data</additionalClasspathElement>
-                    </additionalClasspathElements>
                 </configuration>
             </plugin>
         

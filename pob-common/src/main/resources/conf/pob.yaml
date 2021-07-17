@@ -1,0 +1,22 @@
+application:
+    name: 'Public Opportunities Bot (POB)'
+    description: 'Automated parsing, indexing and publishing of public sector opportunities'
+    repository: https://github.com/hyperlearningai/pob
+    license: 'MIT License'
+    created_by: 'HyperLearning AI'
+    website: https://knowledgebase.hyperlearning.ai/projects/pob
+    author:
+        name: 'Jillur Quddus'
+        email: 'contactus@hyperlearning.ai'
+        website: https://hyperlearning.ai/team/jillurquddus
+    credits:
+        - java
+        - jsoup
+        - spring
+        - spring-boot
+    frameworks:
+        -   id: dos
+            name: 'Digital Outcomes and Specialists Framework'
+            baseUrl: https://www.digitalmarketplace.service.gov.uk
+            opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities
+            parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.DosLatestOpportunityParser 
