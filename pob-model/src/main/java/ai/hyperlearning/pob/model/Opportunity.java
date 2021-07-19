@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,7 +25,11 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
  */
 
 @Entity
-@Table(name = "opportunities")
+@Table(
+		name = "opportunities", 
+		uniqueConstraints = @UniqueConstraint(
+				name = "uniqueUriAndFramework", 
+				columnNames = { "uri", "frameworkId" }))
 public class Opportunity implements Serializable {
 
 	private static final long serialVersionUID = 4837851528332532756L;
@@ -58,6 +63,16 @@ public class Opportunity implements Serializable {
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateClosing;
+	
+	@NotNull
+	private boolean published = false;
+	
+	@NotNull
+	private boolean indexed = false;
+	
+	public Opportunity() {
+		
+	}
 	
 	public Opportunity(String uri, Framework framework, String title, 
 			String buyer, String summary, String url, LocalDate datePublished, 
@@ -136,6 +151,22 @@ public class Opportunity implements Serializable {
 		this.dateClosing = dateClosing;
 	}
 
+	public boolean isPublished() {
+		return published;
+	}
+
+	public void setPublished(boolean published) {
+		this.published = published;
+	}
+
+	public boolean isIndexed() {
+		return indexed;
+	}
+
+	public void setIndexed(boolean indexed) {
+		this.indexed = indexed;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -177,7 +208,9 @@ public class Opportunity implements Serializable {
 				+ "summary=" + summary + ", "
 				+ "url=" + url + ", "
 				+ "datePublished=" + datePublished.toString() + ", "
-				+ "dateClosing=" + dateClosing.toString() + "]";
+				+ "dateClosing=" + dateClosing.toString() + ", "
+				+ "published=" + published + ", "
+				+ "indexed=" + indexed + "]";
 	}
 
 }

@@ -131,6 +131,16 @@
                 <artifactId>pob-parsers</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-jpa</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-apps</artifactId>
+                <version>${revision}</version>
+            </dependency>
     	
     	</dependencies>
     
@@ -143,6 +153,7 @@
 		<module>pob-utils</module>
         <module>pob-parsers</module>
         <module>pob-jpa</module>
+        <module>pob-apps</module>
     </modules>
     
     <!-- Project Build Configuration -->

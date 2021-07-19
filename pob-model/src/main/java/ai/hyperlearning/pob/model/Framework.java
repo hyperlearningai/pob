@@ -99,9 +99,10 @@ public class Framework implements Serializable {
 	public Set<Opportunity> getOpportunities() {
 		return opportunities;
 	}
-
-	public void setOpportunities(Set<Opportunity> opportunities) {
-		this.opportunities = opportunities;
+	
+	public void addOpportunity(Opportunity opportunity) {
+		opportunity.setFramework(this);
+		this.opportunities.add(opportunity);
 	}
 
 	@Override

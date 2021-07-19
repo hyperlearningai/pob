@@ -36,7 +36,7 @@ public class SqlDataSourceConfiguration {
 	
 	@Primary
 	@Bean(name = "pobDataSource")
-	@ConfigurationProperties(prefix = "storage.sql")
+	@ConfigurationProperties(prefix = "application.storage.sql")
 	public DataSource ontologyCollaborationDataSource() {
 		return DataSourceBuilder.create().build();
 	}
@@ -48,11 +48,11 @@ public class SqlDataSourceConfiguration {
 			@Qualifier("pobDataSource") DataSource pobDataSource) {
 		
 		Map<String, String> primaryJpaProperties = new HashMap<String, String>();
-		primaryJpaProperties.put("hibernate.hbm2ddl.auto", "create");
+		primaryJpaProperties.put("hibernate.hbm2ddl.auto", "update");
 		return pobEntityManagerFactoryBuilder
 				.dataSource(pobDataSource)
 				.packages("ai.hyperlearning.pob.model")
-				.persistenceUnit("opportunity")
+				.persistenceUnit("pob")
 				.properties(primaryJpaProperties)
 				.build();
 		

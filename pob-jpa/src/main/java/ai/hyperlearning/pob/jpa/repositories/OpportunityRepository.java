@@ -16,7 +16,7 @@ import ai.hyperlearning.pob.model.Opportunity;
 
 public interface OpportunityRepository extends CrudRepository<Opportunity, String> {
 	
-	@Query("SELECT o FROM Opportunity o WHERE o.uri = ?1 AND o.frameworkId = ?2")
+	@Query("SELECT o FROM Opportunity o WHERE o.uri = ?1 AND o.framework.id = ?2")
 	List<Opportunity> findByUriAndFrameworkId(String uri, String frameworkId);
 
 }

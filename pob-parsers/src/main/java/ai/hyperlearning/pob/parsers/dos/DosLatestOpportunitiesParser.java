@@ -31,7 +31,7 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 			"li.app-search-result";
 	private static final String TITLE_CSS_QUERY = "a.govuk-link";
 	
-	protected DosLatestOpportunitiesParser(Framework framework) {
+	public DosLatestOpportunitiesParser(Framework framework) {
 		super(framework);
 	}
 
