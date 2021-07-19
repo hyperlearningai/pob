@@ -1,6 +1,14 @@
 package ai.hyperlearning.pob.model;
 
 import java.io.Serializable;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  * Public Sector Procurement Framework
@@ -9,14 +17,30 @@ import java.io.Serializable;
  * @since 0.0.1
  */
 
+@Entity
+@Table(name = "frameworks")
 public class Framework implements Serializable {
 
 	private static final long serialVersionUID = -4222445801889651869L;
+	
+	@Id
+	@Column(name = "id")
 	private String id;
+	
+	@NotNull
 	private String name;
+	
+	@NotNull
 	private String baseUrl;
+	
+	@NotNull
 	private String opportunitiesUrl;
+	
+	@NotNull
 	private String parserFullyQualifiedClassName;
+	
+	@OneToMany(mappedBy="framework")
+	private Set<Opportunity> opportunities;
 	
 	public Framework() {
 		
@@ -70,6 +94,14 @@ public class Framework implements Serializable {
 	public void setParserFullyQualifiedClassName(
 			String parserFullyQualifiedClassName) {
 		this.parserFullyQualifiedClassName = parserFullyQualifiedClassName;
+	}
+
+	public Set<Opportunity> getOpportunities() {
+		return opportunities;
+	}
+
+	public void setOpportunities(Set<Opportunity> opportunities) {
+		this.opportunities = opportunities;
 	}
 
 	@Override

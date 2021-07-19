@@ -3,6 +3,19 @@ package ai.hyperlearning.pob.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 /**
  * Public Sector Procurement Opportunity
  *
@@ -10,16 +23,40 @@ import java.time.LocalDate;
  * @since 0.0.1
  */
 
+@Entity
+@Table(name = "opportunities")
 public class Opportunity implements Serializable {
 
 	private static final long serialVersionUID = 4837851528332532756L;
+	
+	@Id
 	private String uri;
+	
+	@ManyToOne
+	@JoinColumn(name = "frameworkId", referencedColumnName = "id", nullable = false)
 	private Framework framework;
+	
+	@NotNull
 	private String title;
+	
+	@NotNull
 	private String buyer;
+	
+	@NotNull
+	@Column(length = 1000)
 	private String summary;
+	
+	@NotNull
 	private String url;
+	
+	@Basic
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate datePublished;
+	
+	@Basic
+	@JsonSerialize(using = LocalDateTimeSerializer.class)
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate dateClosing;
 	
 	public Opportunity(String uri, Framework framework, String title, 

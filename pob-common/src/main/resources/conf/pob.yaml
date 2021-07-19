@@ -15,6 +15,12 @@ application:
         - jsoup
         - spring
         - spring-boot
+    storage:
+        sql:
+            driverClassName: org.hsqldb.jdbc.JDBCDriver
+            jdbcUrl: jdbc:hsqldb:file:/tmp/pob-opportunities-db;DB_CLOSE_DELAY=-1;hsqldb.lock_file=false
+            username: 'sa'
+            password: ''
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
