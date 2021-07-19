@@ -45,6 +45,7 @@
         <conf.application-logging.filename>logback-spring.xml</conf.application-logging.filename>
         <java.version>11</java.version>
         <jsoup.version>1.14.1</jsoup.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -86,6 +87,13 @@
 	            <artifactId>commons-io</artifactId>
 	            <version>${commons-io.version}</version>
 	        </dependency>
+	        
+	        <!-- Logback -->
+	        <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
     	
     		<!-- JSoup -->
     		<dependency>

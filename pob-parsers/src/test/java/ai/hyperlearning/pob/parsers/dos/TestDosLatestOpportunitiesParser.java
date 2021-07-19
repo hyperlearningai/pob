@@ -1,6 +1,8 @@
-package ai.hyperlearning.pob.utils;
+package ai.hyperlearning.pob.parsers.dos;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -10,8 +12,12 @@ import org.springframework.boot.test.context.ConfigDataApplicationContextInitial
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ai.hyperlearning.pob.model.Framework;
+import ai.hyperlearning.pob.model.Opportunity;
+import ai.hyperlearning.pob.utils.ApplicationProperties;
+
 /**
- * Test POB Application Properties
+ * Test Custom DOS Framework Parser
  *
  * @author jillurquddus
  * @since 0.0.1
@@ -20,17 +26,18 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(initializers = ConfigDataApplicationContextInitializer.class)
 @EnableConfigurationProperties(value = ApplicationProperties.class)
-public class TestApplicationProperties {
+public class TestDosLatestOpportunitiesParser {
 	
 	@Autowired
     private ApplicationProperties applicationProperties;
 	
 	@Test
-	void testYamlApplicationPropertiesComplexLists() {
-		assertEquals("dos", applicationProperties
-				.getFrameworks()
-				.get(0)
-				.getId());
+	void testParse() {
+		Framework dosFramework = applicationProperties.getFrameworks().get(0);
+		DosLatestOpportunitiesParser dosLatestOpportunitiesParser = 
+				new DosLatestOpportunitiesParser(dosFramework);
+		Set<Opportunity> opportunities = dosLatestOpportunitiesParser.parse();
+		assertFalse(opportunities.isEmpty());
 	}
 
 }

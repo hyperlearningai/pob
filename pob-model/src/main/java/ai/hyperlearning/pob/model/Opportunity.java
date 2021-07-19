@@ -1,7 +1,7 @@
 package ai.hyperlearning.pob.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Public Sector Procurement Opportunity
@@ -17,15 +17,20 @@ public class Opportunity implements Serializable {
 	private Framework framework;
 	private String title;
 	private String buyer;
-	private Date datePublished;
-	private Date dateClosing;
+	private String summary;
+	private String url;
+	private LocalDate datePublished;
+	private LocalDate dateClosing;
 	
-	public Opportunity(String uri, Framework framework, String buyer, 
-			String title, Date datePublished, Date dateClosing) {
+	public Opportunity(String uri, Framework framework, String title, 
+			String buyer, String summary, String url, LocalDate datePublished, 
+			LocalDate dateClosing) {
 		this.uri = uri;
 		this.framework = framework;
-		this.buyer = buyer;
 		this.title = title;
+		this.buyer = buyer;
+		this.summary = summary;
+		this.url = url;
 		this.datePublished = datePublished;
 		this.dateClosing = dateClosing;
 	}
@@ -45,6 +50,14 @@ public class Opportunity implements Serializable {
 	public void setFramework(Framework framework) {
 		this.framework = framework;
 	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
 	public String getBuyer() {
 		return buyer;
@@ -54,27 +67,35 @@ public class Opportunity implements Serializable {
 		this.buyer = buyer;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getSummary() {
+		return summary;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setSummary(String summary) {
+		this.summary = summary;
 	}
 
-	public Date getDatePublished() {
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public LocalDate getDatePublished() {
 		return datePublished;
 	}
 
-	public void setDatePublished(Date datePublished) {
+	public void setDatePublished(LocalDate datePublished) {
 		this.datePublished = datePublished;
 	}
 
-	public Date getDateClosing() {
+	public LocalDate getDateClosing() {
 		return dateClosing;
 	}
 
-	public void setDateClosing(Date dateClosing) {
+	public void setDateClosing(LocalDate dateClosing) {
 		this.dateClosing = dateClosing;
 	}
 
@@ -114,10 +135,12 @@ public class Opportunity implements Serializable {
 		return "Opportunity ["
 				+ "uri=" + uri + ", "
 				+ "frameworkId=" + framework.getId() + ", "
-				+ "buyer=" + buyer + ", "
 				+ "title=" + title + ", "
-				+ "datePublished=" + datePublished + ", "
-				+ "dateClosing=" + dateClosing + "]";
+				+ "buyer=" + buyer + ", "
+				+ "summary=" + summary + ", "
+				+ "url=" + url + ", "
+				+ "datePublished=" + datePublished.toString() + ", "
+				+ "dateClosing=" + dateClosing.toString() + "]";
 	}
 
 }

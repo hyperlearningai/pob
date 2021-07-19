@@ -50,10 +50,20 @@
             <artifactId>jsoup</artifactId>
         </dependency>
         
+        <!-- Logback -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        
         <!-- POB -->
         <dependency>
             <groupId>ai.hyperlearning.pob</groupId>
             <artifactId>pob-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ai.hyperlearning.pob</groupId>
+            <artifactId>pob-utils</artifactId>
         </dependency>
     
     </dependencies>

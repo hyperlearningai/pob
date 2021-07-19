@@ -7,6 +7,7 @@ application:
     website: https://knowledgebase.hyperlearning.ai/projects/pob
     author:
         name: 'Jillur Quddus'
+        organisation: 'HyperLearning AI'
         email: 'contactus@hyperlearning.ai'
         website: https://hyperlearning.ai/team/jillurquddus
     credits:
@@ -18,5 +19,5 @@ application:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
           baseUrl: https://www.digitalmarketplace.service.gov.uk
-          opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities
+          opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 
