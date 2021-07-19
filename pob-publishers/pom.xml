@@ -11,10 +11,10 @@
     </parent>
     
     <!-- Module Metadata -->
-    <artifactId>pob-apps</artifactId>
-    <name>pob-apps</name>
+    <artifactId>pob-publishers</artifactId>
+    <name>pob-publishers</name>
     <packaging>jar</packaging>
-    <description>POB - Applications</description>
+    <description>POB - Publishers</description>
     <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
     <organization>
         <name>HyperLearning AI</name>
@@ -43,23 +43,17 @@
     
     <!-- Module Dependencies -->
     <dependencies>
+    
+        <!-- JSlack -->
+        <dependency>
+            <groupId>com.github.seratch</groupId>
+            <artifactId>jslack</artifactId>
+        </dependency>
         
         <!-- POB -->
         <dependency>
             <groupId>ai.hyperlearning.pob</groupId>
-            <artifactId>pob-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ai.hyperlearning.pob</groupId>
-            <artifactId>pob-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ai.hyperlearning.pob</groupId>
-            <artifactId>pob-parsers</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>ai.hyperlearning.pob</groupId>
-            <artifactId>pob-publishers</artifactId>
+            <artifactId>pob-model</artifactId>
         </dependency>
     
     </dependencies>

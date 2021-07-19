@@ -18,5 +18,11 @@ public interface OpportunityRepository extends CrudRepository<Opportunity, Strin
 	
 	@Query("SELECT o FROM Opportunity o WHERE o.uri = ?1 AND o.framework.id = ?2")
 	List<Opportunity> findByUriAndFrameworkId(String uri, String frameworkId);
+	
+	@Query("SELECT o FROM Opportunity o WHERE o.published = false")
+	List<Opportunity> findAllWhereNotPublished();
+	
+	@Query("SELECT o FROM Opportunity o WHERE o.indexed = false")
+	List<Opportunity> findAllWhereNotIndexed();
 
 }

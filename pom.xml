@@ -45,6 +45,7 @@
         <conf.application-logging.filename>logback-spring.xml</conf.application-logging.filename>
         <java.version>11</java.version>
         <javax.activation.version>1.1.1</javax.activation.version>
+        <jslack.version>3.4.2</jslack.version>
         <jsoup.version>1.14.1</jsoup.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -80,48 +81,55 @@
     
     <!-- Project Dependency Management -->
     <dependencyManagement>
-    	<dependencies>
-    	
-    	    <!-- Apache Commons IO -->
-	        <dependency>
-	            <groupId>commons-io</groupId>
-	            <artifactId>commons-io</artifactId>
-	            <version>${commons-io.version}</version>
-	        </dependency>
-	        
-	        <!-- JavaBeans Activation Framework for JAXB-API Implementation -->
-	        <dependency>
-	            <groupId>javax.activation</groupId>
-	            <artifactId>activation</artifactId>
-	            <version>${javax.activation.version}</version>
-	        </dependency>
-	        
-	        <!-- JSoup -->
+        <dependencies>
+        
+            <!-- Apache Commons IO -->
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+            
+            <!-- JavaBeans Activation Framework for JAXB-API Implementation -->
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>${javax.activation.version}</version>
+            </dependency>
+            
+            <!-- JSlack -->
+            <dependency>
+                <groupId>com.github.seratch</groupId>
+                <artifactId>jslack</artifactId>
+                <version>${jslack.version}</version>
+            </dependency>
+            
+            <!-- JSoup -->
             <dependency>
                 <groupId>org.jsoup</groupId>
                 <artifactId>jsoup</artifactId>
                 <version>${jsoup.version}</version>
             </dependency>
-	        
-	        <!-- Logback -->
-	        <dependency>
+            
+            <!-- Logback -->
+            <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.version}</version>
             </dependency>
-			
-			<!-- POB -->
-			<dependency>
+            
+            <!-- POB -->
+            <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-common</artifactId>
                 <version>${revision}</version>
             </dependency>
-			<dependency>
-    			<groupId>ai.hyperlearning.pob</groupId>
-    			<artifactId>pob-model</artifactId>
-    			<version>${revision}</version>
-			</dependency>
-			<dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-model</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-utils</artifactId>
                 <version>${revision}</version>
@@ -138,21 +146,27 @@
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-publishers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-apps</artifactId>
                 <version>${revision}</version>
             </dependency>
-    	
-    	</dependencies>
+        
+        </dependencies>
     
     </dependencyManagement>
     
     <!-- Child Modules -->
     <modules>
         <module>pob-common</module>
-		<module>pob-model</module>
-		<module>pob-utils</module>
+        <module>pob-model</module>
+        <module>pob-utils</module>
         <module>pob-parsers</module>
         <module>pob-jpa</module>
+        <module>pob-publishers</module>
         <module>pob-apps</module>
     </modules>
     

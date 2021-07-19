@@ -17,22 +17,23 @@ import ai.hyperlearning.pob.jpa.repositories.FrameworkRepository;
 import ai.hyperlearning.pob.jpa.repositories.OpportunityRepository;
 import ai.hyperlearning.pob.model.Framework;
 import ai.hyperlearning.pob.model.Opportunity;
+import ai.hyperlearning.pob.publishers.SlackPublisher;
 import ai.hyperlearning.pob.utils.ApplicationProperties;
 
 /**
- * Run All Parsers Spring Boot Application
+ * Parser Pipeline Spring Boot Application
  *
  * @author jillurquddus
  * @since 0.0.1
  */
 
-@ComponentScan("ai.hyperlearning.pob")
+@ComponentScan(basePackages = "ai.hyperlearning.pob")
 @EnableConfigurationProperties(value = ApplicationProperties.class)
 @SpringBootApplication
-public class ParserPipelineApp implements CommandLineRunner {
+public class PobApp implements CommandLineRunner {
 	
 	private static final Logger LOGGER = 
-			LoggerFactory.getLogger(ParserPipelineApp.class);
+			LoggerFactory.getLogger(PobApp.class);
 	
 	@Autowired
     private ApplicationProperties applicationProperties;
@@ -43,6 +44,11 @@ public class ParserPipelineApp implements CommandLineRunner {
 	@Autowired
 	private OpportunityRepository opportunityRepository;
 	
+	private Set<Opportunity> newOpportunities;
+	private Set<Opportunity> unpublishedNewOpportunities;
+	private Set<Opportunity> unindexedNewOpportunities;
+	private List<Framework> frameworks;
+	
 	/**
 	 * Spring Boot Application Builder
 	 * @param args
@@ -50,20 +56,30 @@ public class ParserPipelineApp implements CommandLineRunner {
 	 */
 	
 	public static void main(String[] args) throws Exception {
-		new SpringApplicationBuilder(ParserPipelineApp.class)
+		new SpringApplicationBuilder(PobApp.class)
 			.properties("spring.config.name:pob")
 			.build()
 			.run(args);
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void run(String... args) {
+		
+		LOGGER.info("Starting POB");
+		runParserPipeline();
+		runSlackPublisher();
+		LOGGER.info("Closing POB.");
+		System.exit(0);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void runParserPipeline() {
 		
 		LOGGER.info("Starting the POB parser pipeline app.");
 		try {
 			
 			// Parse, persist and iterate through all frameworks from pob.yaml
-			List<Framework> frameworks = applicationProperties.getFrameworks();
+			frameworks = applicationProperties.getFrameworks();
 			frameworkRepository.saveAll(frameworks);
 			for (Framework framework : frameworks) {
 				
@@ -73,7 +89,7 @@ public class ParserPipelineApp implements CommandLineRunner {
 				Object parserInstance = parserClass.getDeclaredConstructor(
 						Framework.class).newInstance(framework);
 				Method parserMethod = parserClass.getDeclaredMethod("parse");
-				Set<Opportunity> newOpportunities = (Set<Opportunity>) 
+				newOpportunities = (Set<Opportunity>) 
 						parserMethod.invoke(parserInstance);
 				
 				// Persist the parsed opportunities to storage
@@ -96,8 +112,21 @@ public class ParserPipelineApp implements CommandLineRunner {
 					+ "parser pipeline app", e);
 		} finally {
 			LOGGER.info("Closing the POB parser pipeline app.");
-			System.exit(0);
 		}
+		
+	}
+	
+	private void runSlackPublisher() {
+		
+		LOGGER.info("Starting the POB Slack publisher app.");
+		int slackWebhookResponseCode = SlackPublisher.sendMessage(
+				applicationProperties.getSlackChannel(), 
+				applicationProperties.getSlackUsername(), 
+				applicationProperties.getSlackEmoji(), 
+				applicationProperties.getSlackWebhook(), 
+				newOpportunities.iterator().next());
+		System.out.println(slackWebhookResponseCode);
+		LOGGER.info("Closing the POB Slack publisher app.");
 		
 	}
 

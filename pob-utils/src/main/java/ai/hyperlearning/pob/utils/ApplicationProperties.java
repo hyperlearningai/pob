@@ -1,8 +1,8 @@
 package ai.hyperlearning.pob.utils;
 
 import java.util.List;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -23,15 +23,50 @@ import ai.hyperlearning.pob.model.Framework;
 @Validated
 public class ApplicationProperties {
 	
-	private List<Map<String, Object>> properties;
+	@Value("${application.publishers.slack.channel}")
+	private String slackChannel;
+	
+	@Value("${application.publishers.slack.username}")
+	private String slackUsername;
+	
+	@Value("${application.publishers.slack.emoji}")
+	private String slackEmoji;
+	
+	@Value("${application.publishers.slack.webhook}")
+	private String slackWebhook;
+	
 	private List<Framework> frameworks;
 	
-	public List<Map<String, Object>> getProperties() {
-		return properties;
+	public String getSlackChannel() {
+		return slackChannel;
 	}
 
-	public void setProperties(List<Map<String, Object>> properties) {
-		this.properties = properties;
+	public void setSlackChannel(String slackChannel) {
+		this.slackChannel = slackChannel;
+	}
+
+	public String getSlackUsername() {
+		return slackUsername;
+	}
+
+	public void setSlackUsername(String slackUsername) {
+		this.slackUsername = slackUsername;
+	}
+
+	public String getSlackEmoji() {
+		return slackEmoji;
+	}
+
+	public void setSlackEmoji(String slackEmoji) {
+		this.slackEmoji = slackEmoji;
+	}
+
+	public String getSlackWebhook() {
+		return slackWebhook;
+	}
+
+	public void setSlackWebhook(String slackWebhook) {
+		this.slackWebhook = slackWebhook;
 	}
 
 	public List<Framework> getFrameworks() {
