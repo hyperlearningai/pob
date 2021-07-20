@@ -42,6 +42,11 @@ public class Framework implements Serializable {
 	@NotNull
 	private String parserFullyQualifiedClassName;
 	
+	@NotNull
+	private boolean filter;
+	
+	private String keywords;
+	
 	@OneToMany(mappedBy="framework")
 	private Set<Opportunity> opportunities;
 	
@@ -50,13 +55,16 @@ public class Framework implements Serializable {
 	}
 	
 	public Framework(String id, String name, boolean enabled, String baseUrl, 
-			String opportunitiesUrl, String parserFullyQualifiedClassName) {
+			String opportunitiesUrl, String parserFullyQualifiedClassName, 
+			boolean filter, String keywords) {
 		this.id = id;
 		this.name = name;
 		this.enabled = enabled;
 		this.baseUrl = baseUrl;
 		this.opportunitiesUrl = opportunitiesUrl;
 		this.parserFullyQualifiedClassName =parserFullyQualifiedClassName;
+		this.filter = filter;
+		this.keywords = keywords;
 	}
 
 	public String getId() {
@@ -108,6 +116,22 @@ public class Framework implements Serializable {
 		this.parserFullyQualifiedClassName = parserFullyQualifiedClassName;
 	}
 
+	public boolean isFilter() {
+		return filter;
+	}
+
+	public void setFilter(boolean filter) {
+		this.filter = filter;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
 	public Set<Opportunity> getOpportunities() {
 		return opportunities;
 	}
@@ -151,7 +175,9 @@ public class Framework implements Serializable {
 				+ "baseUrl=" + baseUrl + ", "
 				+ "opportunitiesUrl=" + opportunitiesUrl + ", "
 				+ "parserFullyQualifiedClassName=" + 
-					parserFullyQualifiedClassName + "]";
+					parserFullyQualifiedClassName + ", "
+				+ "filter=" + filter + ", "
+				+ "keywords=" + keywords + "]";
 	}
 
 }

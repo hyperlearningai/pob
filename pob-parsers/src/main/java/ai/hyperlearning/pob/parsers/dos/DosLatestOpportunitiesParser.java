@@ -15,6 +15,7 @@ import ai.hyperlearning.pob.model.Framework;
 import ai.hyperlearning.pob.model.Opportunity;
 import ai.hyperlearning.pob.parsers.OpportunityParser;
 import ai.hyperlearning.pob.utils.DateFormattingUtils;
+import ai.hyperlearning.pob.utils.StringUtils;
 
 /**
  * Custom Opportunity Parser - DOS Framework
@@ -39,11 +40,24 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 	public Set<Opportunity> parse() {
 		
 		Set<Opportunity> opportunities = new LinkedHashSet<Opportunity>();
+		String opportunitiesUrl = null;
 		try {
 			
+			// Construct the URL to GET with any required keyword filtering
+			if ( getFramework().isFilter() && !getFramework()
+					.getKeywords().isBlank() ) {
+				String keywordsFilterRequestParams = StringUtils
+						.keywordsToGetRequestParams(
+								getFramework().getKeywords());
+				opportunitiesUrl = getFramework().getOpportunitiesUrl()
+						.replace("?q=&", 
+								"?q=" + keywordsFilterRequestParams + "&");
+			} else
+				opportunitiesUrl = getFramework().getOpportunitiesUrl();
+			
 			// Get the HTML contents of the DOS Opportunities URL
-			Document document = Jsoup.connect(
-					getFramework().getOpportunitiesUrl()).get();
+			LOGGER.debug("Parsing {}", opportunitiesUrl);
+			Document document = Jsoup.connect(opportunitiesUrl).get();
 			
 			// Parse and iterate opportunity search results
 			Elements searchResults = document.select(SEARCH_RESULTS_CSS_QUERY);
