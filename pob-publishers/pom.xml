@@ -44,10 +44,10 @@
     <!-- Module Dependencies -->
     <dependencies>
     
-        <!-- JSlack -->
+        <!-- OKHttp -->
         <dependency>
-            <groupId>com.github.seratch</groupId>
-            <artifactId>jslack</artifactId>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
         </dependency>
         
         <!-- POB -->

@@ -23,42 +23,31 @@ import ai.hyperlearning.pob.model.Framework;
 @Validated
 public class ApplicationProperties {
 	
+	@Value("${application.publishers.slack.enabled}")
+	private boolean slackEnabled;
+	
 	@Value("${application.publishers.slack.channel}")
 	private String slackChannel;
-	
-	@Value("${application.publishers.slack.username}")
-	private String slackUsername;
-	
-	@Value("${application.publishers.slack.emoji}")
-	private String slackEmoji;
 	
 	@Value("${application.publishers.slack.webhook}")
 	private String slackWebhook;
 	
 	private List<Framework> frameworks;
 	
+	public boolean isSlackEnabled() {
+		return slackEnabled;
+	}
+
+	public void setSlackEnabled(boolean slackEnabled) {
+		this.slackEnabled = slackEnabled;
+	}
+
 	public String getSlackChannel() {
 		return slackChannel;
 	}
 
 	public void setSlackChannel(String slackChannel) {
 		this.slackChannel = slackChannel;
-	}
-
-	public String getSlackUsername() {
-		return slackUsername;
-	}
-
-	public void setSlackUsername(String slackUsername) {
-		this.slackUsername = slackUsername;
-	}
-
-	public String getSlackEmoji() {
-		return slackEmoji;
-	}
-
-	public void setSlackEmoji(String slackEmoji) {
-		this.slackEmoji = slackEmoji;
 	}
 
 	public String getSlackWebhook() {

@@ -10,11 +10,7 @@ application:
         organisation: 'HyperLearning AI'
         email: 'contactus@hyperlearning.ai'
         website: https://hyperlearning.ai/team/jillurquddus
-    credits:
-        - java
-        - jsoup
-        - spring
-        - spring-boot
+    credits: ["java 11", "jsoup", "junit", "maven", "spring", "spring-boot"]
     storage:
         sql:
             driverClassName: org.hsqldb.jdbc.JDBCDriver
@@ -23,13 +19,13 @@ application:
             password: ''
     publishers:
         slack:
+            enabled: true,
             channel: 'pob'
-            username: 'pob'
-            emoji: ':robot_face:'
             webhook: https://hooks.slack.com/services/XXX/XXX/XXX
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
+          enabled: true,
           baseUrl: https://www.digitalmarketplace.service.gov.uk
           opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 

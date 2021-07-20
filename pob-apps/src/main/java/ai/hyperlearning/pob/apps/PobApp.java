@@ -3,6 +3,7 @@ package ai.hyperlearning.pob.apps;
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +45,6 @@ public class PobApp implements CommandLineRunner {
 	@Autowired
 	private OpportunityRepository opportunityRepository;
 	
-	private Set<Opportunity> newOpportunities;
-	private Set<Opportunity> unpublishedNewOpportunities;
-	private Set<Opportunity> unindexedNewOpportunities;
-	private List<Framework> frameworks;
-	
 	/**
 	 * Spring Boot Application Builder
 	 * @param args
@@ -66,11 +62,16 @@ public class PobApp implements CommandLineRunner {
 		
 		LOGGER.info("Starting POB");
 		runParserPipeline();
-		runSlackPublisher();
+		if (applicationProperties.isSlackEnabled())
+			runSlackPublisher();
 		LOGGER.info("Closing POB.");
 		System.exit(0);
 		
 	}
+	
+	/**
+	 * Run all framework parsers and persist new opportunities to storage
+	 */
 	
 	@SuppressWarnings("unchecked")
 	private void runParserPipeline() {
@@ -79,31 +80,34 @@ public class PobApp implements CommandLineRunner {
 		try {
 			
 			// Parse, persist and iterate through all frameworks from pob.yaml
-			frameworks = applicationProperties.getFrameworks();
+			List<Framework> frameworks = applicationProperties.getFrameworks();
 			frameworkRepository.saveAll(frameworks);
 			for (Framework framework : frameworks) {
-				
-				// Execute the relevant parser class
-				Class<?> parserClass = Class.forName(
-						framework.getParserFullyQualifiedClassName());
-				Object parserInstance = parserClass.getDeclaredConstructor(
-						Framework.class).newInstance(framework);
-				Method parserMethod = parserClass.getDeclaredMethod("parse");
-				newOpportunities = (Set<Opportunity>) 
-						parserMethod.invoke(parserInstance);
-				
-				// Persist the parsed opportunities to storage
-				opportunityRepository.saveAll(newOpportunities);
-				
-				// TO DO - Confirm whether saveAll() automatically deals with 
-				// constraint violations. If not, then use the following code
-				// for (Opportunity newOpportunity : newOpportunities) {
-				// 	if (opportunityRepository.findByUriAndFrameworkId(
-				// 			newOpportunity.getUri(), 
-				// 			framework.getId()).isEmpty()) {
-				// 		opportunityRepository.save(newOpportunity);
-				// 	}
-				// }
+				if (framework.isEnabled()) {
+					
+					// Execute the relevant parser class
+					Class<?> parserClass = Class.forName(
+							framework.getParserFullyQualifiedClassName());
+					Object parserInstance = parserClass.getDeclaredConstructor(
+							Framework.class).newInstance(framework);
+					Method parserMethod = parserClass.getDeclaredMethod("parse");
+					Set<Opportunity> newOpportunities = (Set<Opportunity>) 
+							parserMethod.invoke(parserInstance);
+					
+					// Persist the parsed opportunities to storage
+					opportunityRepository.saveAll(newOpportunities);
+					
+					// TO DO - Confirm whether saveAll() automatically deals with 
+					// constraint violations. If not, then use the following code
+					// for (Opportunity newOpportunity : newOpportunities) {
+					// 	if (opportunityRepository.findByUriAndFrameworkId(
+					// 			newOpportunity.getUri(), 
+					// 			framework.getId()).isEmpty()) {
+					// 		opportunityRepository.save(newOpportunity);
+					// 	}
+					// }
+					
+				}
 				
 			}
 			
@@ -116,17 +120,35 @@ public class PobApp implements CommandLineRunner {
 		
 	}
 	
+	/**
+	 * Publish all unpublished opportunities from storage to a Slack channel
+	 */
+	
 	private void runSlackPublisher() {
 		
 		LOGGER.info("Starting the POB Slack publisher app.");
-		int slackWebhookResponseCode = SlackPublisher.sendMessage(
-				applicationProperties.getSlackChannel(), 
-				applicationProperties.getSlackUsername(), 
-				applicationProperties.getSlackEmoji(), 
-				applicationProperties.getSlackWebhook(), 
-				newOpportunities.iterator().next());
-		System.out.println(slackWebhookResponseCode);
-		LOGGER.info("Closing the POB Slack publisher app.");
+		try {
+			
+			// Get all unpublished opportunities and iterate through them
+			List<Opportunity> unpublishedOpportunities = 
+					opportunityRepository.findAllWhereNotPublished();
+			for (Opportunity unpublishedOpportunity : unpublishedOpportunities) {
+				
+				// Publish the unpublished opportunity to a Slack Channel
+				SlackPublisher.sendMessage(
+						applicationProperties.getSlackChannel(), 
+						applicationProperties.getSlackWebhook(), 
+						unpublishedOpportunity);
+				TimeUnit.SECONDS.sleep(10);
+				
+			}
+			
+		} catch (Exception e) {
+			LOGGER.error("Error encountered when running the POB "
+					+ "Slack publisher app", e);
+		} finally {
+			LOGGER.info("Closing the POB Slack publisher app.");
+		}
 		
 	}
 

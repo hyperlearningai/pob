@@ -31,6 +31,9 @@ public class Framework implements Serializable {
 	private String name;
 	
 	@NotNull
+	private boolean enabled;
+	
+	@NotNull
 	private String baseUrl;
 	
 	@NotNull
@@ -46,10 +49,11 @@ public class Framework implements Serializable {
 		
 	}
 	
-	public Framework(String id, String name, String baseUrl, 
+	public Framework(String id, String name, boolean enabled, String baseUrl, 
 			String opportunitiesUrl, String parserFullyQualifiedClassName) {
 		this.id = id;
 		this.name = name;
+		this.enabled = enabled;
 		this.baseUrl = baseUrl;
 		this.opportunitiesUrl = opportunitiesUrl;
 		this.parserFullyQualifiedClassName =parserFullyQualifiedClassName;
@@ -69,6 +73,14 @@ public class Framework implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getBaseUrl() {
@@ -135,6 +147,7 @@ public class Framework implements Serializable {
 		return "Framework ["
 				+ "id=" + id + ", "
 				+ "name=" + name + ", "
+				+ "enabled=" + enabled + ", "
 				+ "baseUrl=" + baseUrl + ", "
 				+ "opportunitiesUrl=" + opportunitiesUrl + ", "
 				+ "parserFullyQualifiedClassName=" + 
