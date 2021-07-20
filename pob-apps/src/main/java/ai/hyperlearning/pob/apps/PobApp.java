@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.http.HttpStatus;
 
 import ai.hyperlearning.pob.jpa.repositories.FrameworkRepository;
 import ai.hyperlearning.pob.jpa.repositories.OpportunityRepository;
@@ -93,6 +94,9 @@ public class PobApp implements CommandLineRunner {
 					Method parserMethod = parserClass.getDeclaredMethod("parse");
 					Set<Opportunity> newOpportunities = (Set<Opportunity>) 
 							parserMethod.invoke(parserInstance);
+					LOGGER.debug("Parsed {} opportunities from the "
+							+ "'{}' framework", newOpportunities.size(), 
+							framework.getName());
 					
 					// Persist the parsed opportunities to storage
 					opportunityRepository.saveAll(newOpportunities);
@@ -132,14 +136,28 @@ public class PobApp implements CommandLineRunner {
 			// Get all unpublished opportunities and iterate through them
 			List<Opportunity> unpublishedOpportunities = 
 					opportunityRepository.findAllWhereNotPublished();
+			LOGGER.debug("Found {} unpublished opportunities.", 
+					unpublishedOpportunities.size());
 			for (Opportunity unpublishedOpportunity : unpublishedOpportunities) {
 				
 				// Publish the unpublished opportunity to a Slack Channel
-				SlackPublisher.sendMessage(
+				int webhookResponseCode = SlackPublisher.sendMessage(
 						applicationProperties.getSlackChannel(), 
 						applicationProperties.getSlackWebhook(), 
 						unpublishedOpportunity);
-				TimeUnit.SECONDS.sleep(10);
+				
+				// Update the opportunity record in storage to indicate that it
+				// has been published
+				if (webhookResponseCode == HttpStatus.OK.value()) {
+					unpublishedOpportunity.setPublished(true);
+					opportunityRepository.save(unpublishedOpportunity);
+					LOGGER.debug("Published opportunity {} to Slack", 
+							unpublishedOpportunity.getFramework().getId() + 
+							"-" + unpublishedOpportunity.getUri());
+				}
+				
+				// Pause between publications of opportunities to Slack
+				TimeUnit.SECONDS.sleep(15);
 				
 			}
 			

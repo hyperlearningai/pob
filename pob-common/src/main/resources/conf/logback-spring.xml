@@ -48,7 +48,7 @@
     </root>
  
     <!-- POB Logger -->
-    <logger name="ai.hyperlearning.pob" level="INFO" additivity="false">
+    <logger name="ai.hyperlearning.pob" level="DEBUG" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
     </logger>

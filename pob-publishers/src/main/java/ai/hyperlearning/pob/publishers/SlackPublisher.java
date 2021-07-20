@@ -2,6 +2,9 @@ package ai.hyperlearning.pob.publishers;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import ai.hyperlearning.pob.model.Opportunity;
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -19,6 +22,9 @@ import okhttp3.Response;
  */
 
 public class SlackPublisher {
+	
+	private static final Logger LOGGER = 
+			LoggerFactory.getLogger(SlackPublisher.class);
 
 	private static final int MESSAGE_DASH_CHARACTER_LENGTH = 100;
 	private static final String JSON_PLACEHOLDER_SLACK_CHANNEL = 
@@ -39,7 +45,7 @@ public class SlackPublisher {
 			"[OPPORTUNITY_URL]";
 	private static final String POST_REQUEST_JSON_BODY_TEMPLATE = 
 			"{" + 
-					"\"channel\": \"" + JSON_PLACEHOLDER_SLACK_CHANNEL + "\"" +
+					"\"channel\": \"" + JSON_PLACEHOLDER_SLACK_CHANNEL + "\", " +
 					"\"text\": \"" + 
 						"-".repeat(MESSAGE_DASH_CHARACTER_LENGTH) + "\\n" + 
 						"*New Opportunity: " + JSON_PLACEHOLDER_OPPORTUNITY_TITLE + "*\\n" +
@@ -51,7 +57,7 @@ public class SlackPublisher {
 						"*Summary:* " + JSON_PLACEHOLDER_OPPORTUNITY_SUMMARY + "\\n" + 
 						"*Link:* " + JSON_PLACEHOLDER_OPPORTUNITY_URL + "\\n\\n" + 
 						"↓" + 
-					"\"" + 
+					"\", " + 
 					"\"unfurl_links\": true" + 
 			"}";
 	
@@ -82,11 +88,13 @@ public class SlackPublisher {
 		// Submit the POST request and get the Slack webhook response
 		try {
 			
+			LOGGER.debug("POSTing opportunity to Slack channel: \n{}", json);
 			Call call = client.newCall(request);
 			Response response = call.execute();
 			return response.code();
 			
 		} catch (IOException e) {
+			LOGGER.error("Error encountered when publishing to Slack", e);
 			return 404;
 		}
 		
