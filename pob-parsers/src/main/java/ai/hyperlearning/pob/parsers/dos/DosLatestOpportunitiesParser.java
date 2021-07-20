@@ -30,7 +30,12 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 			DosLatestOpportunitiesParser.class);
 	private static final String SEARCH_RESULTS_CSS_QUERY = 
 			"li.app-search-result";
+	private static final String GENERAL_CSS_QUERY = "ul.govuk-list";
 	private static final String TITLE_CSS_QUERY = "a.govuk-link";
+	private static final String SUMMARY_CSS_QUERY = "p.govuk-body";
+	private static final String BUYER_TEXT_PREFIX = "Organisation: ";
+	private static final String DATE_PUBLISHED_TEXT_PREFIX = "Published: ";
+	private static final String DATE_CLOSING_TEXT_PREFIX = "Closing: ";
 	
 	public DosLatestOpportunitiesParser(Framework framework) {
 		super(framework);
@@ -73,13 +78,13 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 						TITLE_CSS_QUERY).text();
 				
 				// Parse buyer
-				String buyer = searchResult.selectFirst("ul.govuk-list")
+				String buyer = searchResult.selectFirst(GENERAL_CSS_QUERY)
 						.selectFirst("li").text()
-						.replace("Organisation: ", "")
+						.replace(BUYER_TEXT_PREFIX, "")
 						.strip();
 				
 				// Parse summary
-				String summary = searchResult.selectFirst("p.govuk-body")
+				String summary = searchResult.selectFirst(SUMMARY_CSS_QUERY)
 						.text();
 				
 				// Parse URL
@@ -87,17 +92,19 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 						.selectFirst(TITLE_CSS_QUERY).attr("href");
 				
 				// Parse date published
-				String datePublishedString = searchResult.select("ul.govuk-list")
+				String datePublishedString = searchResult
+						.select(GENERAL_CSS_QUERY)
 						.get(2).selectFirst("li").text()
-						.replace("Published: ", "")
+						.replace(DATE_PUBLISHED_TEXT_PREFIX, "")
 						.strip();
 				LocalDate datePublished = DateFormattingUtils
 						.EEEEddMMMMyyyyToLocalDate(datePublishedString);
 				
 				// Parse date closing
-				String dateClosingString = searchResult.select("ul.govuk-list")
+				String dateClosingString = searchResult
+						.select(GENERAL_CSS_QUERY)
 						.get(2).select("li").get(2).text()
-						.replace("Closing: ", "")
+						.replace(DATE_CLOSING_TEXT_PREFIX, "")
 						.strip();
 				LocalDate dateClosing = DateFormattingUtils
 						.EEEEddMMMMyyyyToLocalDate(dateClosingString);
@@ -110,7 +117,7 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 			}
 			
 		} catch (Exception e) {
-			LOGGER.error("Unable to parse DOS Opportunities URL", e);
+			LOGGER.error("Unable to parse the DOS Opportunities URL", e);
 		}
 		
 		return opportunities;

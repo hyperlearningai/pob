@@ -99,7 +99,8 @@ public class PobApp implements CommandLineRunner {
 							framework.getName());
 					
 					// Persist the parsed opportunities to storage
-					opportunityRepository.saveAll(newOpportunities);
+					if (!newOpportunities.isEmpty())
+						opportunityRepository.saveAll(newOpportunities);
 					
 					// TO DO - Confirm whether saveAll() automatically deals with 
 					// constraint violations. If not, then use the following code

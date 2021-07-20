@@ -25,7 +25,7 @@ application:
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
-          enabled: true
+          enabled: false
           baseUrl: https://www.digitalmarketplace.service.gov.uk
           opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 
@@ -33,7 +33,7 @@ application:
           keywords: ''
         - id: cf
           name: 'Contracts Finder'
-          enabled: false
+          enabled: true
           baseUrl: https://www.contractsfinder.service.gov.uk
           opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.cf.CfLatestOpportunitiesParser
