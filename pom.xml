@@ -39,6 +39,7 @@
     
     <!-- Properties and Dependency Versions -->
     <properties>
+        <azure-webapp-maven-plugin.version>1.14.0</azure-webapp-maven-plugin.version>
         <build.directory>${basedir}/builds/pob-${project.version}</build.directory>
         <commons-io.version>2.11.0</commons-io.version>
         <conf.application-properties.filename>pob.yaml</conf.application-properties.filename>
@@ -136,12 +137,12 @@
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-parsers</artifactId>
+                <artifactId>pob-jpa</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-jpa</artifactId>
+                <artifactId>pob-parsers</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -164,8 +165,8 @@
         <module>pob-common</module>
         <module>pob-model</module>
         <module>pob-utils</module>
-        <module>pob-parsers</module>
         <module>pob-jpa</module>
+        <module>pob-parsers</module>
         <module>pob-publishers</module>
         <module>pob-apps</module>
     </modules>

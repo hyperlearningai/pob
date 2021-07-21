@@ -39,6 +39,16 @@
     <!-- Module Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <deployment.azure.subscriptionId>AZURE_APP_SUBSCRIPTION_ID</deployment.azure.subscriptionId>
+        <deployment.azure.resourceGroup>AZURE_APP_RESOURCE_GROUP_NAME</deployment.azure.resourceGroup>
+        <deployment.azure.appName>AZURE_APP_NAME</deployment.azure.appName>
+        <deployment.azure.pricingTier>AZURE_APP_PRICING_TIER</deployment.azure.pricingTier>
+        <deployment.azure.region>AZURE_APP_REGION</deployment.azure.region>
+        <deployment.azure.appServicePlanName>AZURE_APP_SERVICE_PLAN_NAME</deployment.azure.appServicePlanName>
+        <deployment.azure.appServicePlanResourceGroup>AZURE_APP_SERVICE_PLAN_RESOURCE_GROUP_NAME</deployment.azure.appServicePlanResourceGroup>
+        <deployment.azure.runtime.os>Linux</deployment.azure.runtime.os>
+        <deployment.azure.runtime.javaVersion>Java 11</deployment.azure.runtime.javaVersion>
+        <deployment.azure.runtime.webContainer>Java SE</deployment.azure.runtime.webContainer>
     </properties>
     
     <!-- Module Dependencies -->
@@ -63,5 +73,72 @@
         </dependency>
     
     </dependencies>
+    
+    <!-- Module Build -->
+    <build>
+    
+        <!-- Plugins -->
+        <plugins>
+        
+            <!-- Build a FAT JAR -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>ai.hyperlearning.pob.apps.PobApp</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage</id>
+                        <configuration>
+                            <classifier>exec</classifier>
+                            <finalName>pob-${project.version}</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            
+            <!-- Microsoft Azure Webapp Maven Plugin -->
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>${azure-webapp-maven-plugin.version}</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <subscriptionId>${deployment.azure.subscriptionId}</subscriptionId>
+                    <resourceGroup>${deployment.azure.resourceGroup}</resourceGroup>
+                    <appName>${deployment.azure.appName}</appName>
+                    <pricingTier>${deployment.azure.pricingTier}</pricingTier>
+                    <region>${deployment.azure.region}</region>
+                    <appServicePlanName>${deployment.azure.appServicePlanName}</appServicePlanName>
+                    <appServicePlanResourceGroup>${deployment.azure.appServicePlanResourceGroup}</appServicePlanResourceGroup>
+                    <runtime>
+                        <os>${deployment.azure.runtime.os}</os>
+                        <javaVersion>${deployment.azure.runtime.javaVersion}</javaVersion>
+                        <webContainer>${deployment.azure.runtime.webContainer}</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>pob-${project.version}-exec.jar</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
+                </configuration>
+            </plugin>
+        
+        </plugins>
+    
+    </build>
     
 </project>
