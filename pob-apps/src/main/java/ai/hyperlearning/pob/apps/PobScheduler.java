@@ -28,7 +28,6 @@ public class PobScheduler {
 		// Run all registered publishers
 		pob.runPublishers();
 		
-		
 	}
 
 }
