@@ -1,11 +1,14 @@
-package ai.hyperlearning.pob.publishers;
+package ai.hyperlearning.pob.publishers.slack;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
 import ai.hyperlearning.pob.model.Opportunity;
+import ai.hyperlearning.pob.publishers.OpportunityPublisher;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -15,17 +18,19 @@ import okhttp3.Response;
 
 
 /**
- * Slack Publisher
+ * Custom Opportunity Publisher - Slack Publisher
  *
  * @author jillurquddus
  * @since 0.0.1
  */
 
-public class SlackPublisher {
+public class SlackPublisher extends OpportunityPublisher {
 	
 	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(SlackPublisher.class);
 
+	private static final String CHANNEL_PROPERTY_KEY = "channel";
+	private static final String WEBHOOK_PROPERTY_KEY = "webhook";
 	private static final int MESSAGE_DASH_CHARACTER_LENGTH = 100;
 	private static final String UNKNOWN_TEXT_VALUE = "Unknown";
 	private static final String JSON_PLACEHOLDER_SLACK_CHANNEL = 
@@ -62,9 +67,16 @@ public class SlackPublisher {
 					"\"unfurl_links\": true" + 
 			"}";
 	
+	public SlackPublisher(Map<String, Object> properties) {
+		super(properties);
+	}
+	
 	@SuppressWarnings("deprecation")
-	public static int sendMessage(String channel, String webhook, 
-			Opportunity opportunity) {
+	public boolean publish(Opportunity opportunity) {
+		
+		// Parse publisher properties
+		String channel = (String) getProperties().get(CHANNEL_PROPERTY_KEY);
+		String webhook = (String) getProperties().get(WEBHOOK_PROPERTY_KEY);
 		
 		// Create the message as a JSON object
 		String json = POST_REQUEST_JSON_BODY_TEMPLATE
@@ -104,11 +116,11 @@ public class SlackPublisher {
 			LOGGER.debug("POSTing opportunity to Slack channel: \n{}", json);
 			Call call = client.newCall(request);
 			Response response = call.execute();
-			return response.code();
+			return (response.code() == HttpStatus.OK.value()) ? true : false;
 			
 		} catch (IOException e) {
 			LOGGER.error("Error encountered when publishing to Slack", e);
-			return 404;
+			return false;
 		}
 		
 	}

@@ -2,13 +2,13 @@ package ai.hyperlearning.pob.utils;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 
 import ai.hyperlearning.pob.model.Framework;
+import ai.hyperlearning.pob.model.Publisher;
 
 /**
  * POB Application Properties
@@ -23,40 +23,8 @@ import ai.hyperlearning.pob.model.Framework;
 @Validated
 public class ApplicationProperties {
 	
-	@Value("${application.publishers.slack.enabled}")
-	private boolean slackEnabled;
-	
-	@Value("${application.publishers.slack.channel}")
-	private String slackChannel;
-	
-	@Value("${application.publishers.slack.webhook}")
-	private String slackWebhook;
-	
 	private List<Framework> frameworks;
-	
-	public boolean isSlackEnabled() {
-		return slackEnabled;
-	}
-
-	public void setSlackEnabled(boolean slackEnabled) {
-		this.slackEnabled = slackEnabled;
-	}
-
-	public String getSlackChannel() {
-		return slackChannel;
-	}
-
-	public void setSlackChannel(String slackChannel) {
-		this.slackChannel = slackChannel;
-	}
-
-	public String getSlackWebhook() {
-		return slackWebhook;
-	}
-
-	public void setSlackWebhook(String slackWebhook) {
-		this.slackWebhook = slackWebhook;
-	}
+	private List<Publisher> publishers;
 
 	public List<Framework> getFrameworks() {
 		return frameworks;
@@ -64,6 +32,14 @@ public class ApplicationProperties {
 
 	public void setFrameworks(List<Framework> frameworks) {
 		this.frameworks = frameworks;
+	}
+
+	public List<Publisher> getPublishers() {
+		return publishers;
+	}
+
+	public void setPublishers(List<Publisher> publishers) {
+		this.publishers = publishers;
 	}
 
 }
