@@ -24,27 +24,32 @@ public class Framework implements Serializable {
 	private static final long serialVersionUID = -4222445801889651869L;
 	
 	@Id
-	@Column(name = "id")
+	@Column(name = "id", length = 100)
 	private String id;
 	
 	@NotNull
+	@Column(length = 100)
 	private String name;
 	
 	@NotNull
 	private boolean enabled;
 	
 	@NotNull
+	@Column(length = 1000)
 	private String baseUrl;
 	
 	@NotNull
+	@Column(length = 1000)
 	private String opportunitiesUrl;
 	
 	@NotNull
+	@Column(length = 250)
 	private String parserFullyQualifiedClassName;
 	
 	@NotNull
 	private boolean filter;
 	
+	@Column(length = 250)
 	private String keywords;
 	
 	@OneToMany(mappedBy="framework")

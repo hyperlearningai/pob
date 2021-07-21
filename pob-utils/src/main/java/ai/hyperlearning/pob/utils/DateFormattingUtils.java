@@ -17,6 +17,10 @@ public class DateFormattingUtils {
 			.ofPattern("EEEE dd MMMM yyyy");
 	private static final DateTimeFormatter EEEE_D_MMMM_YYYY = DateTimeFormatter
 			.ofPattern("EEEE d MMMM yyyy");
+	private static final DateTimeFormatter DD_MMMM_YYYY = DateTimeFormatter
+			.ofPattern("dd MMMM yyyy");
+	private static final DateTimeFormatter D_MMMM_YYYY = DateTimeFormatter
+			.ofPattern("d MMMM yyyy");
 	
 	/**
 	 * Parse string date of format EEEE dd MMMM yyyy
@@ -30,6 +34,24 @@ public class DateFormattingUtils {
 		} catch (DateTimeParseException e1) {
 			try {
 				return LocalDate.parse(dateString, EEEE_D_MMMM_YYYY);
+			} catch (DateTimeParseException e2) {
+				return null;
+			}
+		}
+	}
+	
+	/**
+	 * Parse string date of format dd MMMM yyyy
+	 * @param dateString
+	 * @return
+	 */
+	
+	public static LocalDate ddMMMMyyyyToLocalDate(String dateString) {
+		try {
+			return LocalDate.parse(dateString, DD_MMMM_YYYY);
+		} catch (DateTimeParseException e1) {
+			try {
+				return LocalDate.parse(dateString, D_MMMM_YYYY);
 			} catch (DateTimeParseException e2) {
 				return null;
 			}

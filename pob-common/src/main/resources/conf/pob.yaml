@@ -25,7 +25,7 @@ application:
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
-          enabled: false
+          enabled: true
           baseUrl: https://www.digitalmarketplace.service.gov.uk
           opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 

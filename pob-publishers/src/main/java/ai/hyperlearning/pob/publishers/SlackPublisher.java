@@ -27,6 +27,7 @@ public class SlackPublisher {
 			LoggerFactory.getLogger(SlackPublisher.class);
 
 	private static final int MESSAGE_DASH_CHARACTER_LENGTH = 100;
+	private static final String UNKNOWN_TEXT_VALUE = "Unknown";
 	private static final String JSON_PLACEHOLDER_SLACK_CHANNEL = 
 			"[SLACK_CHANNEL]";
 	private static final String JSON_PLACEHOLDER_OPPORTUNITY_TITLE = 
@@ -67,14 +68,26 @@ public class SlackPublisher {
 		
 		// Create the message as a JSON object
 		String json = POST_REQUEST_JSON_BODY_TEMPLATE
-				.replace(JSON_PLACEHOLDER_SLACK_CHANNEL, channel)
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_TITLE, opportunity.getTitle())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_BUYER, opportunity.getBuyer())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_FRAMEWORK_NAME, opportunity.getFramework().getName())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_DATE_PUBLISHED, opportunity.getDatePublished().toString())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_DATE_CLOSING, opportunity.getDateClosing().toString())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_SUMMARY, opportunity.getSummary().replace("\"", "'").strip())
-				.replace(JSON_PLACEHOLDER_OPPORTUNITY_URL, opportunity.getUrl());
+				.replace(JSON_PLACEHOLDER_SLACK_CHANNEL, 
+						channel)
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_TITLE, 
+						opportunity.getTitle())
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_BUYER, 
+						opportunity.getBuyer())
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_FRAMEWORK_NAME, 
+						opportunity.getFramework().getName())
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_DATE_PUBLISHED, 
+						opportunity.getDatePublished() != null ? 
+								opportunity.getDatePublished().toString() : 
+									UNKNOWN_TEXT_VALUE)
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_DATE_CLOSING, 
+						opportunity.getDateClosing() != null ? 
+								opportunity.getDateClosing().toString() : 
+									UNKNOWN_TEXT_VALUE)
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_SUMMARY, 
+						opportunity.getSummary().replace("\"", "'").strip())
+				.replace(JSON_PLACEHOLDER_OPPORTUNITY_URL, 
+						opportunity.getUrl());
 		
 		// Create the HTTP client and POST request object
 		OkHttpClient client = new OkHttpClient();

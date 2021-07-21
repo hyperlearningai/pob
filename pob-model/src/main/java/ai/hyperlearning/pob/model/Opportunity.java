@@ -35,6 +35,7 @@ public class Opportunity implements Serializable {
 	private static final long serialVersionUID = 4837851528332532756L;
 	
 	@Id
+	@Column(length = 250)
 	private String uri;
 	
 	@ManyToOne
@@ -42,9 +43,11 @@ public class Opportunity implements Serializable {
 	private Framework framework;
 	
 	@NotNull
+	@Column(length = 500)
 	private String title;
 	
 	@NotNull
+	@Column(length = 500)
 	private String buyer;
 	
 	@NotNull
@@ -52,6 +55,7 @@ public class Opportunity implements Serializable {
 	private String summary;
 	
 	@NotNull
+	@Column(length = 1000)
 	private String url;
 	
 	@Basic
