@@ -39,13 +39,13 @@
     <!-- Module Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <deployment.azure.subscriptionId>AZURE_APP_SUBSCRIPTION_ID</deployment.azure.subscriptionId>
-        <deployment.azure.resourceGroup>AZURE_APP_RESOURCE_GROUP_NAME</deployment.azure.resourceGroup>
-        <deployment.azure.appName>AZURE_APP_NAME</deployment.azure.appName>
-        <deployment.azure.pricingTier>AZURE_APP_PRICING_TIER</deployment.azure.pricingTier>
-        <deployment.azure.region>AZURE_APP_REGION</deployment.azure.region>
-        <deployment.azure.appServicePlanName>AZURE_APP_SERVICE_PLAN_NAME</deployment.azure.appServicePlanName>
-        <deployment.azure.appServicePlanResourceGroup>AZURE_APP_SERVICE_PLAN_RESOURCE_GROUP_NAME</deployment.azure.appServicePlanResourceGroup>
+        <deployment.azure.subscriptionId>${env.POB_AZURE_APP_SUBSCRIPTION_ID}</deployment.azure.subscriptionId>
+        <deployment.azure.resourceGroup>${env.POB_AZURE_APP_RESOURCE_GROUP_NAME}</deployment.azure.resourceGroup>
+        <deployment.azure.appName>${env.POB_AZURE_APP_NAME}</deployment.azure.appName>
+        <deployment.azure.pricingTier>${env.POB_AZURE_APP_PRICING_TIER}</deployment.azure.pricingTier>
+        <deployment.azure.region>${env.POB_AZURE_APP_REGION}</deployment.azure.region>
+        <deployment.azure.appServicePlanName>${env.POB_AZURE_APP_SERVICE_PLAN_NAME}</deployment.azure.appServicePlanName>
+        <deployment.azure.appServicePlanResourceGroup>${env.POB_AZURE_APP_SERVICE_PLAN_RESOURCE_GROUP_NAME}</deployment.azure.appServicePlanResourceGroup>
         <deployment.azure.runtime.os>Linux</deployment.azure.runtime.os>
         <deployment.azure.runtime.javaVersion>Java 11</deployment.azure.runtime.javaVersion>
         <deployment.azure.runtime.webContainer>Java SE</deployment.azure.runtime.webContainer>

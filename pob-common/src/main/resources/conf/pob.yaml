@@ -18,20 +18,20 @@ application:
     storage:
         sql:
             driverClassName: org.hsqldb.jdbc.JDBCDriver
-            jdbcUrl: jdbc:hsqldb:file:/tmp/pob/pob-db;DB_CLOSE_DELAY=-1;hsqldb.lock_file=false
-            username: 'sa'
-            password: ''
+            jdbcUrl: ${POB_STORAGE_SQL_JDBC_URL}
+            username: '${POB_STORAGE_SQL_USERNAME}'
+            password: '${POB_STORAGE_SQL_PASSWORD}'
     publishers:
         - id: slack
-          enabled: true
+          enabled: false
           publisherFullyQualifiedClassName: ai.hyperlearning.pob.publishers.slack.SlackPublisher
           properties:
             channel: 'pob'
-            webhook: https://hooks.slack.com/services/XXX/XXX/XXX
+            webhook: ${POB_SLACK_WEBHOOK}
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
-          enabled: true
+          enabled: false
           baseUrl: https://www.digitalmarketplace.service.gov.uk
           opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 
@@ -39,7 +39,7 @@ application:
           keywords: ''
         - id: cf
           name: 'Contracts Finder'
-          enabled: true
+          enabled: false
           baseUrl: https://www.contractsfinder.service.gov.uk
           opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.cf.CfLatestOpportunitiesParser
