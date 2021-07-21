@@ -2,6 +2,7 @@ package ai.hyperlearning.pob.utils;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,19 @@ import ai.hyperlearning.pob.model.Publisher;
 @Validated
 public class ApplicationProperties {
 	
+	@Value("${application.server.port}")
+	private int serverPort;
+	
 	private List<Framework> frameworks;
 	private List<Publisher> publishers;
+	
+	public int getServerPort() {
+		return serverPort;
+	}
+
+	public void setServerPort(int serverPort) {
+		this.serverPort = serverPort;
+	}
 
 	public List<Framework> getFrameworks() {
 		return frameworks;

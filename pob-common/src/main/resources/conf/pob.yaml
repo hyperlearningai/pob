@@ -11,6 +11,8 @@ application:
         email: 'contactus@hyperlearning.ai'
         website: https://hyperlearning.ai/team/jillurquddus
     credits: ["Apache Commons", "Apache Maven", "HSQLDB", "Jackson", "Java 11", "JSoup", "JUnit", "Logback", "OKHttp", "Spring Boot", "Spring Framework"]
+    server:
+        port: 8081
     scheduler:
         cron: "0 0/30 * * * *"
     storage:
