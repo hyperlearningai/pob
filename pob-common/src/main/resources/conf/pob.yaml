@@ -19,7 +19,7 @@ application:
             password: ''
     publishers:
         - id: slack
-          enabled: false
+          enabled: true
           publisherFullyQualifiedClassName: ai.hyperlearning.pob.publishers.slack.SlackPublisher
           properties:
             channel: 'pob'
@@ -27,7 +27,7 @@ application:
     frameworks:
         - id: dos
           name: 'Digital Outcomes and Specialists Framework'
-          enabled: false
+          enabled: true
           baseUrl: https://www.digitalmarketplace.service.gov.uk
           opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.dos.DosLatestOpportunitiesParser 
@@ -35,7 +35,7 @@ application:
           keywords: ''
         - id: cf
           name: 'Contracts Finder'
-          enabled: false
+          enabled: true
           baseUrl: https://www.contractsfinder.service.gov.uk
           opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.cf.CfLatestOpportunitiesParser

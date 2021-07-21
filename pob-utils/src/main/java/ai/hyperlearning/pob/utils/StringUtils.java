@@ -12,5 +12,12 @@ public class StringUtils {
 	public static String keywordsToGetRequestParams(String keywords) {
 		return keywords.replace(" ", "%20").strip();
 	}
+	
+	public static String cleanJsonValueString(String value) {
+		return value
+				.replace("\"", "'")
+				.replace("\\", "/")
+				.strip();
+	}
 
 }

@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 
 import ai.hyperlearning.pob.model.Opportunity;
 import ai.hyperlearning.pob.publishers.OpportunityPublisher;
+import ai.hyperlearning.pob.utils.StringUtils;
 import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -83,11 +84,14 @@ public class SlackPublisher extends OpportunityPublisher {
 				.replace(JSON_PLACEHOLDER_SLACK_CHANNEL, 
 						channel)
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_TITLE, 
-						opportunity.getTitle())
+						StringUtils.cleanJsonValueString(
+								opportunity.getTitle()))
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_BUYER, 
-						opportunity.getBuyer())
+						StringUtils.cleanJsonValueString(
+								opportunity.getBuyer()))
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_FRAMEWORK_NAME, 
-						opportunity.getFramework().getName())
+						StringUtils.cleanJsonValueString(
+								opportunity.getFramework().getName()))
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_DATE_PUBLISHED, 
 						opportunity.getDatePublished() != null ? 
 								opportunity.getDatePublished().toString() : 
@@ -97,7 +101,8 @@ public class SlackPublisher extends OpportunityPublisher {
 								opportunity.getDateClosing().toString() : 
 									UNKNOWN_TEXT_VALUE)
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_SUMMARY, 
-						opportunity.getSummary().replace("\"", "'").strip())
+						StringUtils.cleanJsonValueString(
+								opportunity.getSummary()))
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_URL, 
 						opportunity.getUrl());
 		
