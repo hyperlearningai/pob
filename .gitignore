@@ -1,6 +1,4 @@
 # Build Resources
-/builds/*
-!/builds/.gitkeep
 /target/
 **/logs/*
 /logs/*
