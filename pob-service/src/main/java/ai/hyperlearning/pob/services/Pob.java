@@ -1,4 +1,4 @@
-package ai.hyperlearning.pob.apps;
+package ai.hyperlearning.pob.services;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -21,7 +21,7 @@ import ai.hyperlearning.pob.model.Publisher;
 import ai.hyperlearning.pob.utils.ApplicationProperties;
 
 /**
- * Pob Applications
+ * Pob Service
  *
  * @author jillurquddus
  * @since 0.0.1

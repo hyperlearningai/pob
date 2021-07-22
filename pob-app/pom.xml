@@ -71,6 +71,10 @@
             <groupId>ai.hyperlearning.pob</groupId>
             <artifactId>pob-publishers</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ai.hyperlearning.pob</groupId>
+            <artifactId>pob-service</artifactId>
+        </dependency>
     
     </dependencies>
     
@@ -105,11 +109,10 @@
                 </executions>
             </plugin>
             
-            <!-- Microsoft Azure Webapp Maven Plugin -->
+            <!-- Azure Webapp Maven Plugin -->
             <plugin>
                 <groupId>com.microsoft.azure</groupId>
                 <artifactId>azure-webapp-maven-plugin</artifactId>
-                <version>${azure-webapp-maven-plugin.version}</version>
                 <configuration>
                     <schemaVersion>v2</schemaVersion>
                     <subscriptionId>${deployment.azure.subscriptionId}</subscriptionId>
