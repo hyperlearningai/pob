@@ -32,6 +32,7 @@ public class Pob {
 	
 	private static final Logger LOGGER = 
 			LoggerFactory.getLogger(Pob.class);
+	private static final int SECONDS_BETWEEN_PUBLICATIONS = 10;
 	
 	@Autowired
     private ApplicationProperties applicationProperties;
@@ -191,7 +192,7 @@ public class Pob {
 					}
 					
 					// Pause between new publications
-					TimeUnit.SECONDS.sleep(15);
+					TimeUnit.SECONDS.sleep(SECONDS_BETWEEN_PUBLICATIONS);
 					
 				}
 				
