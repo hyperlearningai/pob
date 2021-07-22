@@ -39,7 +39,6 @@
     <!-- Module Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <deployment.azure.function.subscriptionId>${env.POB_AZURE_FUNCTION_SUBSCRIPTION_ID}</deployment.azure.function.subscriptionId>
         <deployment.azure.function.resourceGroup>${env.POB_AZURE_FUNCTION_RESOURCE_GROUP_NAME}</deployment.azure.function.resourceGroup>
         <deployment.azure.function.appName>${env.POB_AZURE_FUNCTION_NAME}</deployment.azure.function.appName>
         <deployment.azure.function.region>${env.POB_AZURE_FUNCTION_REGION}</deployment.azure.function.region>

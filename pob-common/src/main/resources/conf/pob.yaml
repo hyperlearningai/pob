@@ -17,7 +17,7 @@ application:
         cron: "0 0/30 * * * *"
     storage:
         sql:
-            driverClassName: org.hsqldb.jdbc.JDBCDriver
+            driverClassName: ${POB_STORAGE_SQL_JDBC_DRIVER_CLASS_NAME}
             jdbcUrl: ${POB_STORAGE_SQL_JDBC_URL}
             username: '${POB_STORAGE_SQL_USERNAME}'
             password: '${POB_STORAGE_SQL_PASSWORD}'
@@ -26,7 +26,7 @@ application:
           enabled: true
           publisherFullyQualifiedClassName: ai.hyperlearning.pob.publishers.slack.SlackPublisher
           properties:
-            channel: 'pob'
+            channel: '${POB_SLACK_CHANNEL}'
             webhook: ${POB_SLACK_WEBHOOK}
     frameworks:
         - id: dos
