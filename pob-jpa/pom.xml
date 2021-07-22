@@ -51,6 +51,13 @@
             <scope>runtime</scope>
         </dependency>
         
+        <!-- MySQL -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- POB -->
         <dependency>
             <groupId>ai.hyperlearning.pob</groupId>
