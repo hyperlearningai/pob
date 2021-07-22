@@ -151,7 +151,7 @@
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-apps</artifactId>
+                <artifactId>pob-app</artifactId>
                 <version>${revision}</version>
             </dependency>
         
@@ -167,7 +167,7 @@
         <module>pob-jpa</module>
         <module>pob-parsers</module>
         <module>pob-publishers</module>
-        <module>pob-apps</module>
+        <module>pob-app</module>
     </modules>
     
     <!-- Project Build Configuration -->

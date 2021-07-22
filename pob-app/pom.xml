@@ -11,10 +11,10 @@
     </parent>
     
     <!-- Module Metadata -->
-    <artifactId>pob-apps</artifactId>
-    <name>pob-apps</name>
+    <artifactId>pob-app</artifactId>
+    <name>pob-app</name>
     <packaging>jar</packaging>
-    <description>POB - Applications</description>
+    <description>POB - Spring Boot Application</description>
     <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
     <organization>
         <name>HyperLearning AI</name>
