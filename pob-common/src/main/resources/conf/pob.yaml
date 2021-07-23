@@ -41,7 +41,7 @@ application:
           name: 'Contracts Finder'
           enabled: true
           baseUrl: https://www.contractsfinder.service.gov.uk
-          opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search
+          opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.cf.CfLatestOpportunitiesParser
           filter: true
           keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing' 

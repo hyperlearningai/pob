@@ -1,8 +1,10 @@
 package ai.hyperlearning.pob.utils;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Date;
 
 /**
  * Date Formatting Utility Methods
@@ -21,6 +23,16 @@ public class DateFormattingUtils {
 			.ofPattern("dd MMMM yyyy");
 	private static final DateTimeFormatter D_MMMM_YYYY = DateTimeFormatter
 			.ofPattern("d MMMM yyyy");
+	
+	/**
+	 * Get the current date as a string in the given date format
+	 * @param dateFormat
+	 * @return
+	 */
+	
+	public static String getCurrentDateString(String dateFormat) {
+		return new SimpleDateFormat(dateFormat).format(new Date());
+	}
 	
 	/**
 	 * Parse string date of format EEEE dd MMMM yyyy
