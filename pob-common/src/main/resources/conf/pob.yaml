@@ -10,7 +10,7 @@ application:
         organisation: 'HyperLearning AI'
         email: 'contactus@hyperlearning.ai'
         website: https://hyperlearning.ai/team/jillurquddus
-    credits: ["Apache Commons", "Apache Maven", "HSQLDB", "Jackson", "Java 11", "JSoup", "JUnit", "Logback", "OKHttp", "Spring Boot", "Spring Cloud Function", "Spring Framework"]
+    credits: ["Apache Commons", "Apache Maven", "Google Guava", "HSQLDB", "Jackson", "JSoup", "JUnit", "Logback", "OKHttp", "OpenJDK 11", "Spring Boot", "Spring Cloud Function", "Spring Framework"]
     server:
         port: 8080
     scheduler:
