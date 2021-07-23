@@ -174,42 +174,51 @@ public class Pob {
 				for (Opportunity unpublishedOpportunity : 
 					unpublishedOpportunities) {
 					
-					// Iterate through all registered publishers
-					int publishedCount = 0;
-					for (Publisher publisher : publishers) {
-						if (publisher.isEnabled()) {
-							
-							// Execute the publish method of the 
-							// relevant publisher class
-							Class<?> publisherClass = Class.forName(publisher
-									.getPublisherFullyQualifiedClassName());
-							Object publisherInstance = publisherClass
-									.getDeclaredConstructor(Map.class)
-									.newInstance(publisher.getProperties());
-							Method publisherMethod = publisherClass
-									.getDeclaredMethod("publish", 
-											Opportunity.class);
-							boolean published =  (boolean) publisherMethod
-									.invoke(publisherInstance, 
-											unpublishedOpportunity);
-							if (published)
-								publishedCount++;
+					try {
+						
+						// Iterate through all registered publishers
+						int publishedCount = 0;
+						for (Publisher publisher : publishers) {
+							if (publisher.isEnabled()) {
+								
+								// Execute the publish method of the 
+								// relevant publisher class
+								Class<?> publisherClass = Class.forName(publisher
+										.getPublisherFullyQualifiedClassName());
+								Object publisherInstance = publisherClass
+										.getDeclaredConstructor(Map.class)
+										.newInstance(publisher.getProperties());
+								Method publisherMethod = publisherClass
+										.getDeclaredMethod("publish", 
+												Opportunity.class);
+								boolean published =  (boolean) publisherMethod
+										.invoke(publisherInstance, 
+												unpublishedOpportunity);
+								if (published)
+									publishedCount++;
+								
+							}
 							
 						}
 						
-					}
-					
-					// Update the opportunity record in storage to indicate 
-					// that it has been fully published
-					if (publishedCount == enabledPublishersCount) {
-						unpublishedOpportunity.setPublished(true);
-						opportunityRepository.save(unpublishedOpportunity);
-						LOGGER.debug("Fully published opportunity {}", 
+						// Update the opportunity record in storage to indicate 
+						// that it has been fully published
+						if (publishedCount == enabledPublishersCount) {
+							unpublishedOpportunity.setPublished(true);
+							opportunityRepository.save(unpublishedOpportunity);
+							LOGGER.debug("Fully published opportunity {}", 
+									unpublishedOpportunity.getFramework().getId()
+									+ "-" + unpublishedOpportunity.getUri());
+						}
+						
+					} catch (Exception oe) {
+						LOGGER.error("Error encountered when publishing "
+								+ "opportunity {}", 
 								unpublishedOpportunity.getFramework().getId()
-								+ "-" + unpublishedOpportunity.getUri());
+								+ "-" + unpublishedOpportunity.getUri(), oe);
 					}
 					
-					// Pause between new publications
+					// Pause between publishing new opportunities
 					TimeUnit.SECONDS.sleep(SECONDS_BETWEEN_PUBLICATIONS);
 					
 				}
