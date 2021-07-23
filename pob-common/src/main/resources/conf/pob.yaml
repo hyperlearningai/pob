@@ -14,7 +14,7 @@ application:
     server:
         port: 8080
     scheduler:
-        cron: "0 0/30 * * * *"
+        cron: "0 0/20 * * * *"
     storage:
         sql:
             driverClassName: ${POB_STORAGE_SQL_JDBC_DRIVER_CLASS_NAME}
@@ -44,4 +44,4 @@ application:
           opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
           parserFullyQualifiedClassName: ai.hyperlearning.pob.parsers.cf.CfLatestOpportunitiesParser
           filter: true
-          keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing' 
+          keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing language' 

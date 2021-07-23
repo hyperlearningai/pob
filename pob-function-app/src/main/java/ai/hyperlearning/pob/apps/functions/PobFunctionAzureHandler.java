@@ -28,7 +28,7 @@ public class PobFunctionAzureHandler extends FunctionInvoker<String, Boolean> {
 	
 	@FunctionName("pobFunction")
 	public void runPob(
-			@TimerTrigger(name = "keepAliveTrigger", schedule = "0 0/30 * * * *") String timerInfo,
+			@TimerTrigger(name = "keepAliveTrigger", schedule = "0 0/20 * * * *") String timerInfo,
 			ExecutionContext context) {
 		context.getLogger().info("POB Function triggered: " + timerInfo);
 		handleRequest(timerInfo, context);
