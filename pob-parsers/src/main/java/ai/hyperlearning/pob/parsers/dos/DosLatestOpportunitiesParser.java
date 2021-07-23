@@ -68,10 +68,9 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 			Elements searchResults = document.select(SEARCH_RESULTS_CSS_QUERY);
 			for (Element searchResult : searchResults) {
 				
-				// Parse URI
-				String[] uriHref = searchResult.selectFirst(
-						TITLE_CSS_QUERY).attr("href").split("/");
-				String uri = uriHref[uriHref.length - 1];
+				// Parse URI (normally the opportunity URL if applicable)
+				String uri = getFramework().getBaseUrl() + searchResult
+						.selectFirst(TITLE_CSS_QUERY).attr("href");
 				
 				// Parse title
 				String title = searchResult.selectFirst(
@@ -86,10 +85,6 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 				// Parse summary
 				String summary = searchResult.selectFirst(SUMMARY_CSS_QUERY)
 						.text();
-				
-				// Parse URL
-				String url = getFramework().getBaseUrl() + searchResult
-						.selectFirst(TITLE_CSS_QUERY).attr("href");
 				
 				// Parse date published
 				String datePublishedString = searchResult
@@ -110,8 +105,9 @@ public class DosLatestOpportunitiesParser extends OpportunityParser {
 						.EEEEddMMMMyyyyToLocalDate(dateClosingString);
 				
 				// Create an opportunity object and add it to the set
-				Opportunity opportunity = new Opportunity(uri, getFramework(), 
-						title, buyer, summary, url, datePublished, dateClosing);
+				Opportunity opportunity = new Opportunity(uri, uri, 
+						getFramework(), title, buyer, summary, 
+						datePublished, dateClosing);
 				opportunities.add(opportunity);
 				
 			}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -93,26 +94,43 @@ public class Pob {
 								.newInstance(framework);
 						Method parserMethod = parserClass
 								.getDeclaredMethod("parse");
-						Set<Opportunity> newOpportunities = (Set<Opportunity>) 
+						Set<Opportunity> parsedOpportunities = (Set<Opportunity>) 
 								parserMethod.invoke(parserInstance);
 						LOGGER.debug("Parsed {} opportunities from the "
-								+ "'{}' framework", newOpportunities.size(), 
+								+ "'{}' framework", parsedOpportunities.size(), 
 								framework.getName());
 						
-						// Persist the parsed opportunities to storage
-						if (!newOpportunities.isEmpty())
-							opportunityRepository.saveAll(newOpportunities);
-						
-						// TO DO - Confirm whether saveAll() automatically 
-						// deals with constraint violations. If not, then 
-						// use the following code
-						// for (Opportunity newOpportunity : newOpportunities) {
-						// 	if (opportunityRepository.findByUriAndFrameworkId(
-						// 			newOpportunity.getUri(), 
-						// 			framework.getId()).isEmpty()) {
-						// 		opportunityRepository.save(newOpportunity);
-						// 	}
-						// }
+						// Identify which of these parsed opportunities are new
+						if (!parsedOpportunities.isEmpty()) {
+							
+							// Get the list of parsed opportunity IDs
+							Set<String> parsedOpportunityIds = 
+									parsedOpportunities
+										.stream()
+										.map(Opportunity::getId)
+										.collect(Collectors.toSet());
+							
+							// Identify whether these IDs and associated
+							// opportunities already exist in storage
+							List<Opportunity> knownOpportunities = 
+									(List<Opportunity>) opportunityRepository
+									.findAllById(parsedOpportunityIds);
+							
+							// Remove known opportunities from the parsed
+							// opportunities, leaving a set containing
+							// only new opportunities
+							parsedOpportunities.removeAll(knownOpportunities);
+							LOGGER.debug("Found {} new opportunities from the "
+									+ "opportunities parsed from the {} "
+									+ "framework", parsedOpportunities.size(), 
+									framework.getName());
+							
+							// Persist the parsed new opportunities to storage
+							if (!parsedOpportunities.isEmpty())
+								opportunityRepository.saveAll(
+										parsedOpportunities);
+							
+						}
 						
 					}
 					
@@ -187,8 +205,8 @@ public class Pob {
 						unpublishedOpportunity.setPublished(true);
 						opportunityRepository.save(unpublishedOpportunity);
 						LOGGER.debug("Fully published opportunity {}", 
-								unpublishedOpportunity.getFramework().getId() + 
-								"-" + unpublishedOpportunity.getUri());
+								unpublishedOpportunity.getFramework().getId()
+								+ "-" + unpublishedOpportunity.getUri());
 					}
 					
 					// Pause between new publications

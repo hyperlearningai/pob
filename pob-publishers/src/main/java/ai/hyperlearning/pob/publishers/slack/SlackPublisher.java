@@ -81,8 +81,7 @@ public class SlackPublisher extends OpportunityPublisher {
 		
 		// Create the message as a JSON object
 		String json = POST_REQUEST_JSON_BODY_TEMPLATE
-				.replace(JSON_PLACEHOLDER_SLACK_CHANNEL, 
-						channel)
+				.replace(JSON_PLACEHOLDER_SLACK_CHANNEL, channel)
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_TITLE, 
 						StringUtils.cleanJsonValueString(
 								opportunity.getTitle()))
@@ -104,7 +103,8 @@ public class SlackPublisher extends OpportunityPublisher {
 						StringUtils.cleanJsonValueString(
 								opportunity.getSummary()))
 				.replace(JSON_PLACEHOLDER_OPPORTUNITY_URL, 
-						opportunity.getUrl());
+						opportunity.getUrl() != null ? 
+								opportunity.getUrl() : UNKNOWN_TEXT_VALUE);
 		
 		// Create the HTTP client and POST request object
 		OkHttpClient client = new OkHttpClient();

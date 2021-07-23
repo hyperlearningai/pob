@@ -99,8 +99,9 @@ public class CfLatestOpportunitiesParser extends OpportunityParser {
 					SEARCH_RESULTS_CSS_QUERY);
 			for (Element searchResult : searchResults) {
 				
-				// Parse URI
-				String uri = searchResult.selectFirst("h2").attr("id");
+				// Parse URI (normally the opportunity URL if applicable)
+				String uri = searchResult.selectFirst("h2")
+						.selectFirst("a").attr("href");
 				
 				// Parse title
 				String title = searchResult.selectFirst("h2")
@@ -112,10 +113,6 @@ public class CfLatestOpportunitiesParser extends OpportunityParser {
 				// Parse summary
 				String summary = searchResult.select(SUMMARY_CSS_QUERY)
 						.get(1).text();
-				
-				// Parse URL
-				String url = searchResult.selectFirst("h2")
-						.selectFirst("a").attr("href");
 				
 				// Parse search result entries for additional metadata
 				String datePublishedString = null;
@@ -143,8 +140,9 @@ public class CfLatestOpportunitiesParser extends OpportunityParser {
 								dateClosingString.split(",")[0]) : null;
 				
 				// Create an opportunity object and add it to the set
-				Opportunity opportunity = new Opportunity(uri, getFramework(), 
-						title, buyer, summary, url, datePublished, dateClosing);
+				Opportunity opportunity = new Opportunity(uri, uri, 
+						getFramework(), title, buyer, summary, 
+						datePublished, dateClosing);
 				opportunities.add(opportunity);
 				
 			}

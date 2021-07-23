@@ -1,6 +1,7 @@
 package ai.hyperlearning.pob.model;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import javax.persistence.Basic;
@@ -16,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.google.common.hash.Hashing;
 
 /**
  * Public Sector Procurement Opportunity
@@ -36,7 +38,14 @@ public class Opportunity implements Serializable {
 	
 	@Id
 	@Column(length = 250)
+	private String id;
+	
+	@NotNull
+	@Column(length = 1000)
 	private String uri;
+	
+	@Column(length = 1000)
+	private String url;
 	
 	@ManyToOne
 	@JoinColumn(name = "frameworkId", referencedColumnName = "id", nullable = false)
@@ -53,10 +62,6 @@ public class Opportunity implements Serializable {
 	@NotNull
 	@Column(length = 1000)
 	private String summary;
-	
-	@NotNull
-	@Column(length = 1000)
-	private String url;
 	
 	@Basic
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -78,17 +83,32 @@ public class Opportunity implements Serializable {
 		
 	}
 	
-	public Opportunity(String uri, Framework framework, String title, 
-			String buyer, String summary, String url, LocalDate datePublished, 
-			LocalDate dateClosing) {
+	public Opportunity(String uri, String url, Framework framework, 
+			String title, String buyer, String summary, 
+			LocalDate datePublished, LocalDate dateClosing) {
+		this.id = Hashing.sha512().hashString(framework.getId() + "-" + uri, 
+				StandardCharsets.UTF_8).toString();
 		this.uri = uri;
+		this.url = url;
 		this.framework = framework;
 		this.title = title;
 		this.buyer = buyer;
 		this.summary = summary;
-		this.url = url;
 		this.datePublished = datePublished;
 		this.dateClosing = dateClosing;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+	
+	public void setId(String uri, Framework framework) {
+		this.id = Hashing.sha512().hashString(framework.getId() + "-" + uri, 
+				StandardCharsets.UTF_8).toString();
 	}
 
 	public String getUri() {
@@ -97,6 +117,14 @@ public class Opportunity implements Serializable {
 
 	public void setUri(String uri) {
 		this.uri = uri;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Framework getFramework() {
@@ -129,14 +157,6 @@ public class Opportunity implements Serializable {
 
 	public void setSummary(String summary) {
 		this.summary = summary;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
 	}
 
 	public LocalDate getDatePublished() {
@@ -175,8 +195,7 @@ public class Opportunity implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((framework == null) ? 0 : framework.hashCode());
-		result = prime * result + ((uri == null) ? 0 : uri.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -189,15 +208,10 @@ public class Opportunity implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Opportunity other = (Opportunity) obj;
-		if (framework == null) {
-			if (other.framework != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!framework.equals(other.framework))
-			return false;
-		if (uri == null) {
-			if (other.uri != null)
-				return false;
-		} else if (!uri.equals(other.uri))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
@@ -205,12 +219,13 @@ public class Opportunity implements Serializable {
 	@Override
 	public String toString() {
 		return "Opportunity ["
+				+ "id=" + id + ", "
 				+ "uri=" + uri + ", "
+				+ "url=" + url + ", "
 				+ "frameworkId=" + framework.getId() + ", "
 				+ "title=" + title + ", "
 				+ "buyer=" + buyer + ", "
 				+ "summary=" + summary + ", "
-				+ "url=" + url + ", "
 				+ "datePublished=" + datePublished.toString() + ", "
 				+ "dateClosing=" + dateClosing.toString() + ", "
 				+ "published=" + published + ", "
