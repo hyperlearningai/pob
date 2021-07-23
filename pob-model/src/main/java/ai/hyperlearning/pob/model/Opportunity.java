@@ -86,8 +86,7 @@ public class Opportunity implements Serializable {
 	public Opportunity(String uri, String url, Framework framework, 
 			String title, String buyer, String summary, 
 			LocalDate datePublished, LocalDate dateClosing) {
-		this.id = Hashing.sha512().hashString(framework.getId() + "-" + uri, 
-				StandardCharsets.UTF_8).toString();
+		setId(uri, framework);
 		this.uri = uri;
 		this.url = url;
 		this.framework = framework;
