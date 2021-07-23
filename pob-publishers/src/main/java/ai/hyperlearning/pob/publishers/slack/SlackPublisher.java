@@ -116,16 +116,30 @@ public class SlackPublisher extends OpportunityPublisher {
 			      .build();
 		
 		// Submit the POST request and get the Slack webhook response
+		Response response = null;
 		try {
 			
 			LOGGER.debug("POSTing opportunity to Slack channel: \n{}", json);
 			Call call = client.newCall(request);
-			Response response = call.execute();
+			response = call.execute();
 			return (response.code() == HttpStatus.OK.value()) ? true : false;
 			
 		} catch (IOException e) {
+			
 			LOGGER.error("Error encountered when publishing to Slack", e);
 			return false;
+		
+		} finally {
+			
+			// Close the response object to avoid connection leaks
+			if (response != null) {
+				try {
+					response.close();
+				} catch (Exception e) {
+					
+				}
+			}
+			
 		}
 		
 	}
