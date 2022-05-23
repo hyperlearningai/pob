@@ -1,0 +1,56 @@
+name: pob
+frameworks:
+    - id: dos
+      name: 'Digital Outcomes and Specialists Framework'
+      enabled: true
+      baseUrl: https://www.digitalmarketplace.service.gov.uk
+      opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
+      parserClass: ai.hyperlearning.pob.etl.parsers.dos.DosLatestOpportunitiesParser 
+      filter: false
+      keywords: ''
+    - id: cf
+      name: 'Contracts Finder'
+      enabled: true
+      baseUrl: https://www.contractsfinder.service.gov.uk
+      opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
+      parserClass: ai.hyperlearning.pob.etl.parsers.cf.CfLatestOpportunitiesParser
+      filter: true
+      keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing language' 
+publishers:
+    - id: slack
+      enabled: true
+      publisherClass: ai.hyperlearning.pob.etl.publishers.slack.SlackPublisher
+      properties:
+        channel: 
+        webhook: 
+    - id: google-chat
+      enabled: false
+      publisherClass: ai.hyperlearning.pob.etl.publishers.google.chat.GoogleChatPublisher
+      properties:
+        webhook: 
+    - id: elasticsearch
+      enabled: false
+      publisherClass: ai.hyperlearning.pob.etl.publishers.elasticsearch.ElasticsearchPublisher
+      properties:
+        url: 
+        username: 
+        password: 
+        index: 
+        ssl: true  
+scheduler:
+    enabled: false
+    cron: "0 0/20 * * * *"
+storage:
+    sql:
+        driverClassName: 
+        jdbcUrl: 
+        username: 
+        password: 
+web:
+    azure:
+        webapps:
+            port: 80
+    aws:
+        beanstalk:
+            port: 5000
+    

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * Public Sector Procurement Framework
+ * Procurement Framework
  *
  * @author jillurquddus
  * @since 0.0.1

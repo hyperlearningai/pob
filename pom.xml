@@ -9,10 +9,10 @@
     <packaging>pom</packaging>
     <name>pob</name>
     <description>Public Opportunities Bot (POB)</description>
-    <url>https://hyperlearning.ai</url>
+    <url>https://docs.pob.directory</url>
     <organization>
         <name>HyperLearning AI</name>
-        <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
+        <url>https://hyperlearning.ai</url>
     </organization>
     <developers>
         <developer>
@@ -34,7 +34,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.2</version>
+        <version>2.7.0</version>
     </parent>
     
     <!-- Properties and Dependency Versions -->
@@ -60,14 +60,14 @@
     
     <!-- Project Dependencies -->
     <dependencies>
-    
+
         <!-- JUnit -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <!-- Spring Boot Starter Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -80,7 +80,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-    
+
     </dependencies>
     
     <!-- Project Dependency Management -->
@@ -198,58 +198,69 @@
     
     <!-- Child Modules -->
     <modules>
-        <module>pob-common</module>
+        <module>pob-configuration</module>
         <module>pob-model</module>
-        <module>pob-utils</module>
-        <module>pob-jpa</module>
-        <module>pob-parsers</module>
-        <module>pob-publishers</module>
-        <module>pob-service</module>
-        <module>pob-app</module>
-        <module>pob-function-app</module>
+        <module>pob-core</module>
+        <module>pob-data</module>
     </modules>
+    
+    <!-- Project Profiles -->
+    <profiles>
+    
+        <!-- Build Profile - Build apps -->
+        <profile>
+            <id>apps</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>pob-apps</module>
+            </modules>
+        </profile>
+    
+    </profiles>
     
     <!-- Project Build Configuration -->
     <build>
-    
+
         <!-- Project Resources -->
         <resources>
-        
-            <!-- Build Version  -->
+
+            <!-- Build Version -->
             <resource>
-                <directory>${basedir}</directory>
+                <directory>${project.basedir}</directory>
                 <filtering>true</filtering>
                 <includes>
                     <include>VERSION.txt</include>
                 </includes>
             </resource>
-            
+
         </resources>
-        
+
         <!-- Project Plugin Management -->
         <pluginManagement>
             <plugins>
-        
-                <!-- Azure Functions Maven Plugin -->
+
+                <!-- Microsoft Azure Functions Maven Plugin -->
                 <plugin>
                     <groupId>com.microsoft.azure</groupId>
                     <artifactId>azure-functions-maven-plugin</artifactId>
                     <version>${azure-functions-maven-plugin.version}</version>
                 </plugin>
-        
-	            <!-- Azure Webapp Maven Plugin -->
-	            <plugin>
-	                <groupId>com.microsoft.azure</groupId>
-	                <artifactId>azure-webapp-maven-plugin</artifactId>
-	                <version>${azure-webapp-maven-plugin.version}</version>
-	            </plugin>
-        
+
+                <!-- Microsoft Azure Webapp Maven Plugin -->
+                <plugin>
+                    <groupId>com.microsoft.azure</groupId>
+                    <artifactId>azure-webapp-maven-plugin</artifactId>
+                    <version>${azure-webapp-maven-plugin.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
-        
+
         <!-- Project Plugins -->
         <plugins>
-        
+
             <!-- Compiler Management -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -259,9 +270,9 @@
                     <target>${maven.compiler.target}</target>
                 </configuration>
             </plugin>
-        
+
         </plugins>
-    
+
     </build>
     
 </project>

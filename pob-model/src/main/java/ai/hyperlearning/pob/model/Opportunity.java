@@ -20,7 +20,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.google.common.hash.Hashing;
 
 /**
- * Public Sector Procurement Opportunity
+ * Project Opportunity
  *
  * @author jillurquddus
  * @since 0.0.1

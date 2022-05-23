@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent Project -->
+    <parent>
+        <groupId>ai.hyperlearning.pob</groupId>
+        <artifactId>pob</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <!-- Module Metadata -->
+    <artifactId>pob-apps</artifactId>
+    <name>pob-apps</name>
+    <packaging>pom</packaging>
+    <description>POB - Applications POM</description>
+    <url>https://docs.pob.directory</url>
+    <organization>
+        <name>HyperLearning AI</name>
+        <url>https://hyperlearning.ai</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>jillurquddus</id>
+            <name>Jillur Quddus</name>
+            <email>contactus@hyperlearning.ai</email>
+            <url>https://hyperlearning.ai/team/jillurquddus</url>
+            <organization>HyperLearning AI</organization>
+            <organizationUrl>https://hyperlearning.ai</organizationUrl>
+            <roles>
+                <role>Chief Data Scientist</role>
+                <role>Principal Polyglot Software Engineer</role>
+            </roles>
+            <timezone>Europe/London</timezone>
+        </developer>
+    </developers>
+
+    <!-- Module Properties -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <!-- Module Profiles -->
+    <profiles>
+    
+        <!-- Build Profile - All apps for all deployment environments -->
+        <profile>
+            <id>apps-multicloud</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
+                <module>pob-apps-spring</module>
+                <module>pob-apps-aws</module>
+                <module>pob-apps-azure</module>
+            </modules>
+        </profile>
+        
+        <!-- Build Profile - Spring Boot apps for deployment to self-managed 
+        or Spring cloud environments -->
+        <profile>
+            <id>apps-spring</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>pob-apps-spring</module>
+            </modules>
+        </profile>
+        
+        <!-- Build Profile - AWS apps for deployment to AWS Lambda instances 
+        and AWS Elastic Beanstalk environments respectively -->
+        <profile>
+            <id>apps-aws</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>pob-apps-aws</module>
+            </modules>
+        </profile>
+    
+        <!-- Build Profile - Microsoft Azure apps for deployment to 
+        Azure Function instances and Azure Web Apps respectively -->
+        <profile>
+            <id>apps-azure</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>pob-apps-azure</module>
+            </modules>
+        </profile>
+    
+    </profiles>
+
+</project>
