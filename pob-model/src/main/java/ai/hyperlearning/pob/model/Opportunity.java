@@ -77,9 +77,6 @@ public class Opportunity implements Serializable {
     @NotNull
     private boolean published = false;
 
-    @NotNull
-    private boolean indexed = false;
-
     public Opportunity() {
 
     }
@@ -185,14 +182,6 @@ public class Opportunity implements Serializable {
         this.published = published;
     }
 
-    public boolean isIndexed() {
-        return indexed;
-    }
-
-    public void setIndexed(boolean indexed) {
-        this.indexed = indexed;
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -231,7 +220,6 @@ public class Opportunity implements Serializable {
                 + "datePublished=" + datePublished.toString() + ", " 
                 + "dateClosing=" + dateClosing.toString() + ", "
                 + "published=" + published + ", " 
-                + "indexed=" + indexed 
                 + "]";
     }
 
