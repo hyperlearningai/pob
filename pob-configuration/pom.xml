@@ -72,7 +72,6 @@
         </dependency>
 
         <!-- Spring Cloud Starter Bootstrap -->
-        <!-- Parent POM dependency - com.azure.spring:spring-cloud-azure-dependencies -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
@@ -80,7 +79,6 @@
 
         <!-- Spring Cloud Starter Vault Config -->
         <!-- Bootstrap configuration stored in Hashicorp Vault -->
-        <!-- Parent POM dependency - com.azure.spring:spring-cloud-azure-dependencies -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-vault-config</artifactId>
