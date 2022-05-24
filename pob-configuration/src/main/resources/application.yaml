@@ -21,21 +21,21 @@ publishers:
       enabled: true
       publisherClass: ai.hyperlearning.pob.data.publishers.slack.SlackPublisher
       properties:
-        channel: 
-        webhook: 
+        channel: ${slack-channel}
+        webhook: ${slack-webhook}
     - id: google-chat
       enabled: false
       publisherClass: ai.hyperlearning.pob.data.publishers.google.GoogleChatPublisher
       properties:
-        webhook: 
+        webhook: ${google-chat-webhook}
     - id: elasticsearch
       enabled: false
       publisherClass: ai.hyperlearning.pob.data.publishers.elastic.ElasticsearchPublisher
       properties:
-        url: 
-        username: 
-        password: 
-        index: 
+        url: ${elasticsearch-url}
+        username: ${elasticsearch-username}
+        password: ${elasticsearch-password}
+        index: pob
         ssl: true
 pipelines:
     main:
@@ -44,9 +44,9 @@ pipelines:
             enabled: false
             cron: "0 0/20 * * * *"
 storage:
-    sql:
-        driverClassName: 
-        jdbcUrl: 
-        username: 
-        password: 
+    rdbms:
+        driverClassName: ${rdbms-driverClassName}
+        jdbcUrl: ${rdbms-jdbcUrl}
+        username: ${rdbms-username}
+        password: ${rdbms-password}
     

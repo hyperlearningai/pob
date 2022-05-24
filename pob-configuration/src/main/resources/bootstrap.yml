@@ -4,22 +4,22 @@ spring:
     cloud:
         vault:
             enabled: false
-            host:
-            port:
-            scheme:
-            authentication:
-            token:
+            host: localhost
+            port: 8200
+            scheme: http
+            authentication: TOKEN
+            token: ${VAULT_TOKEN}
             kv:
-                enabled:
-                backend:
-                default-context:
+                enabled: true
+                backend: secret
+                default-context: pob/development
 azure:
     keyvault:
         enabled: false
-        client-id:
-        client-key:
-        tenant-id:
-        uri:
+        client-id: ${AZURE_KEYVAULT_CLIENT_ID}
+        client-key: ${AZURE_KEYVAULT_CLIENT_SECRET}
+        tenant-id: ${AZURE_KEYVAULT_TENANT_ID}
+        uri: ${AZURE_KEYVAULT_URI}
 aws:
     secretsmanager:
         enabled: true
