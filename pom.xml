@@ -147,12 +147,22 @@
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-model</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-utils</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-io</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-parsers</artifactId>
                 <version>${revision}</version>
             </dependency>
             
