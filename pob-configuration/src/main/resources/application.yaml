@@ -19,18 +19,18 @@ frameworks:
 publishers:
     - id: slack
       enabled: true
-      publisherClass: ai.hyperlearning.pob.etl.publishers.slack.SlackPublisher
+      publisherClass: ai.hyperlearning.pob.data.publishers.slack.SlackPublisher
       properties:
         channel: 
         webhook: 
     - id: google-chat
       enabled: false
-      publisherClass: ai.hyperlearning.pob.etl.publishers.google.chat.GoogleChatPublisher
+      publisherClass: ai.hyperlearning.pob.data.publishers.google.GoogleChatPublisher
       properties:
         webhook: 
     - id: elasticsearch
       enabled: false
-      publisherClass: ai.hyperlearning.pob.etl.publishers.elasticsearch.ElasticsearchPublisher
+      publisherClass: ai.hyperlearning.pob.data.publishers.elastic.ElasticsearchPublisher
       properties:
         url: 
         username: 

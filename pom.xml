@@ -142,7 +142,7 @@
             <!-- POB -->
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-confiuration</artifactId>
+                <artifactId>pob-configuration</artifactId>
                 <version>${revision}</version>
             </dependency>
             <dependency>
@@ -168,6 +168,16 @@
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-parsers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-publishers</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-pipelines</artifactId>
                 <version>${revision}</version>
             </dependency>
             
