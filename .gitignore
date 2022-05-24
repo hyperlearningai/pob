@@ -1,8 +1,11 @@
 # Build Resources
+/builds/*
+!/builds/.gitkeep
 /target/
 **/logs/*
 /logs/*
 !/logs/.gitkeep
+**/function.zip
 
 # Compiled Resources
 __pycache__/
@@ -12,6 +15,7 @@ __pycache__/
 # IDE Resources
 /.settings/
 .classpath
+.factorypath
 .project
 .pydevproject
 **/.settings/
@@ -22,6 +26,7 @@ __pycache__/
 
 # Development Resources
 *.ipynb
+/pob-scratch/
 
 # Temporary Resources
 .ipynb_checkpoints/
