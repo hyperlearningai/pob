@@ -42,7 +42,7 @@
 
     <!-- Child Modules -->
     <modules>
-        <module>pob-aws-lambda-app-data-pipeline</module>
+        <module>pob-aws-lambda-app-data-pipelines-scheduler</module>
     </modules>
 
 </project>

@@ -42,7 +42,7 @@
 
     <!-- Child Modules -->
     <modules>
-        <module>pob-app-data-pipeline</module>
+        <module>pob-app-data-pipelines-scheduler</module>
     </modules>
 
 </project>

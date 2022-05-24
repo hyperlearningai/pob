@@ -1,4 +1,4 @@
-package ai.hyperlearning.pob.data.pipelines;
+package ai.hyperlearning.pob.data.pipelines.main;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

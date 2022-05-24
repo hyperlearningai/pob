@@ -36,10 +36,13 @@ publishers:
         username: 
         password: 
         index: 
-        ssl: true  
-scheduler:
-    enabled: false
-    cron: "0 0/20 * * * *"
+        ssl: true
+pipelines:
+    main:
+        enabled: true
+        scheduler:
+            enabled: false
+            cron: "0 0/20 * * * *"
 storage:
     sql:
         driverClassName: 

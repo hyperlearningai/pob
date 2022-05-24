@@ -42,7 +42,7 @@
 
     <!-- Child Modules -->
     <modules>
-        <module>pob-azure-function-app-data-pipeline</module>
+        <module>pob-azure-function-app-data-pipelines-scheduler</module>
     </modules>
 
 </project>
