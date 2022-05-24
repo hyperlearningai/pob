@@ -145,6 +145,11 @@
                 <artifactId>pob-confiuration</artifactId>
                 <version>${revision}</version>
             </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-utils</artifactId>
+                <version>${revision}</version>
+            </dependency>
             
             <!-- Spring Cloud Dependencies POM -->
             <dependency>
