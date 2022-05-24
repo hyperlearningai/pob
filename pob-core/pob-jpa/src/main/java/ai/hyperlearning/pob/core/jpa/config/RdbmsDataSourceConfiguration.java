@@ -20,7 +20,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
- * SQL Data Source Configuration
+ * RDBMS Data Source Configuration
  *
  * @author jillurquddus
  * @since 0.0.1
@@ -32,11 +32,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
         basePackages = {"ai.hyperlearning.pob.core.jpa.repositories"}, 
         entityManagerFactoryRef = "pobEntityManagerFactory",
         transactionManagerRef = "pobTransactionManager")
-public class SqlDataSourceConfiguration {
+public class RdbmsDataSourceConfiguration {
     
     @Primary
     @Bean(name = "pobDataSource")
-    @ConfigurationProperties(prefix = "storage.sql")
+    @ConfigurationProperties(prefix = "storage.rdbms")
     public DataSource ontologyCollaborationDataSource() {
         return DataSourceBuilder.create().build();
     }
