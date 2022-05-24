@@ -42,9 +42,10 @@
 
     <!-- Child Modules -->
     <modules>
+        <module>pob-utils</module>
+        <module>pob-io</module>
         <module>pob-exceptions</module>
         <module>pob-jpa</module>
-        <module>pob-utils</module> 
     </modules>
 
 </project>
