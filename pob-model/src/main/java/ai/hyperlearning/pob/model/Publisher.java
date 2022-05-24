@@ -1,6 +1,7 @@
 package ai.hyperlearning.pob.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -12,93 +13,89 @@ import java.util.Map;
 
 public class Publisher implements Serializable {
 
-	private static final long serialVersionUID = 5745021834926792359L;
-	private String id;
-	private boolean enabled;
-	private String publisherFullyQualifiedClassName;
-	private Map<String, Object> properties;
-	
-	public Publisher() {
-		
-	}
+    private static final long serialVersionUID = 5745021834926792359L;
+    private String id;
+    private boolean enabled;
+    private String publisherClass;
+    private Map<String, Object> properties = new LinkedHashMap<>();
 
-	public Publisher(String id, boolean enabled, 
-			String publisherFullyQualifiedClassName, 
-			Map<String, Object> properties) {
-		this.id = id;
-		this.enabled = enabled;
-		this.publisherFullyQualifiedClassName = 
-				publisherFullyQualifiedClassName;
-		this.properties = properties;
-	}
+    public Publisher() {
 
-	public String getId() {
-		return id;
-	}
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public Publisher(String id, boolean enabled, String publisherClass,
+            Map<String, Object> properties) {
+        this.id = id;
+        this.enabled = enabled;
+        this.publisherClass = publisherClass;
+        this.properties = properties;
+    }
 
-	public boolean isEnabled() {
-		return enabled;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getPublisherFullyQualifiedClassName() {
-		return publisherFullyQualifiedClassName;
-	}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-	public void setPublisherFullyQualifiedClassName(
-			String publisherFullyQualifiedClassName) {
-		this.publisherFullyQualifiedClassName = 
-				publisherFullyQualifiedClassName;
-	}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
-	public Map<String, Object> getProperties() {
-		return properties;
-	}
+    public String getPublisherClass() {
+        return publisherClass;
+    }
 
-	public void setProperties(Map<String, Object> properties) {
-		this.properties = properties;
-	}
+    public void setPublisherClass(String publisherClass) {
+        this.publisherClass = publisherClass;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
-	}
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Publisher other = (Publisher) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		return true;
-	}
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
+    }
 
-	@Override
-	public String toString() {
-		return "Publisher ["
-				+ "id=" + id + ", "
-				+ "enabled=" + enabled + ", "
-				+ "publisherFullyQualifiedClassName=" 
-					+ publisherFullyQualifiedClassName + ", "
-				+ "properties=" + properties + "]";
-	}
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Publisher other = (Publisher) obj;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Publisher [" 
+                + "id=" + id + ", " 
+                + "enabled=" + enabled + ", "
+                + "publisherClass=" + publisherClass + ", "
+                + "properties=" + properties 
+                + "]";
+    }
 
 }

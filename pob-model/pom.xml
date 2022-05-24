@@ -14,7 +14,7 @@
   	<artifactId>pob-model</artifactId>
   	<name>pob-model</name>
   	<packaging>jar</packaging>
-  	<description>POB - Model Definitions</description>
+  	<description>POB - Entity Model Definitions</description>
   	<url>https://docs.pob.directory</url>
   	<organization>
         <name>HyperLearning AI</name>
@@ -24,7 +24,7 @@
         <developer>
             <id>jillurquddus</id>
             <name>Jillur Quddus</name>
-            <email>jillur.quddus@hyperlearning.ai</email>
+            <email>contactus@hyperlearning.ai</email>
             <url>https://hyperlearning.ai/team/jillurquddus</url>
             <organization>HyperLearning AI</organization>
             <organizationUrl>https://hyperlearning.ai</organizationUrl>
