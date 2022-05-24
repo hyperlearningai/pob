@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import ai.hyperlearning.pob.core.jpa.repositories.FrameworkRepository;
@@ -51,6 +52,9 @@ public class MainPipeline {
     @Autowired
     private OpportunityRepository opportunityRepository;
     
+    @Value("${pipelines.main.enabled:true}")
+    private Boolean enabled;
+    
     @PostConstruct
     public void logRegisteredFrameworks() {
         LOGGER.info("Registered the following frameworks:\n{}", 
@@ -68,10 +72,14 @@ public class MainPipeline {
      */
     
     public void run() {
-        LOGGER.info("Started the POB Main Pipeline.");
-        runRegisteredParsers();
-        runRegisteredPublishers();
-        LOGGER.info("Finished the POB Main Pipeline.");
+        if (Boolean.TRUE.equals(enabled)) {
+            LOGGER.info("Started the POB Main Pipeline.");
+            runRegisteredParsers();
+            runRegisteredPublishers();
+            LOGGER.info("Finished the POB Main Pipeline.");
+        } else {
+            LOGGER.warn("The POB Main Pipeline is not enabled. Skipping.");
+        }
     }
     
     /**
