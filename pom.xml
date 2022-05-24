@@ -162,6 +162,11 @@
             </dependency>
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
+                <artifactId>pob-jpa</artifactId>
+                <version>${revision}</version>
+            </dependency>
+            <dependency>
+                <groupId>ai.hyperlearning.pob</groupId>
                 <artifactId>pob-parsers</artifactId>
                 <version>${revision}</version>
             </dependency>

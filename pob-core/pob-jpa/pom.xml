@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd"
+    xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <!-- Parent Project -->
     <parent>
         <groupId>ai.hyperlearning.pob</groupId>
-        <artifactId>pob</artifactId>
+        <artifactId>pob-core</artifactId>
         <version>${revision}</version>
     </parent>
-    
+
     <!-- Module Metadata -->
     <artifactId>pob-jpa</artifactId>
     <name>pob-jpa</name>
     <packaging>jar</packaging>
-    <description>POB - Java Persistence API</description>
-    <url>https://knowledgebase.hyperlearning.ai/projects/pob</url>
+    <description>POB - JPA Repositories and Configuration</description>
+    <url>https://docs.pob.directory</url>
     <organization>
         <name>HyperLearning AI</name>
         <url>https://hyperlearning.ai</url>
@@ -24,7 +24,7 @@
         <developer>
             <id>jillurquddus</id>
             <name>Jillur Quddus</name>
-            <email>jillur.quddus@hyperlearning.ai</email>
+            <email>contactus@hyperlearning.ai</email>
             <url>https://hyperlearning.ai/team/jillurquddus</url>
             <organization>HyperLearning AI</organization>
             <organizationUrl>https://hyperlearning.ai</organizationUrl>
@@ -35,12 +35,12 @@
             <timezone>Europe/London</timezone>
         </developer>
     </developers>
-    
+
     <!-- Module Properties -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
+
     <!-- Module Dependencies -->
     <dependencies>
     
@@ -48,6 +48,20 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- MariaDB -->
+        <dependency>
+            <groupId>org.mariadb.jdbc</groupId>
+            <artifactId>mariadb-java-client</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- Microsoft SQL Server / Azure SQL Database -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
             <scope>runtime</scope>
         </dependency>
         
@@ -64,12 +78,26 @@
             <artifactId>pob-model</artifactId>
         </dependency>
         
+        <!-- PostgreSQL -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        
         <!-- Spring Boot Starter Data JPA -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-    
+        
+        <!-- SQLite -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
     </dependencies>
-    
+
 </project>

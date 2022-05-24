@@ -1,4 +1,4 @@
-package ai.hyperlearning.pob.jpa.repositories;
+package ai.hyperlearning.pob.core.jpa.repositories;
 
 import java.util.List;
 
@@ -8,18 +8,15 @@ import org.springframework.data.repository.CrudRepository;
 import ai.hyperlearning.pob.model.Opportunity;
 
 /**
- * Opportunity Repository
+ * Procurement Opportunity Repository
  *
  * @author jillurquddus
  * @since 0.0.1
  */
 
 public interface OpportunityRepository extends CrudRepository<Opportunity, String> {
-	
-	@Query("SELECT o FROM Opportunity o WHERE o.published = false")
-	List<Opportunity> findAllWhereNotPublished();
-	
-	@Query("SELECT o FROM Opportunity o WHERE o.indexed = false")
-	List<Opportunity> findAllWhereNotIndexed();
+    
+    @Query("SELECT o FROM Opportunity o WHERE o.published = false")
+    List<Opportunity> findNonPublished();
 
 }

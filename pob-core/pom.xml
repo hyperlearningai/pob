@@ -44,7 +44,6 @@
     <modules>
         <module>pob-utils</module>
         <module>pob-io</module>
-        <module>pob-exceptions</module>
         <module>pob-jpa</module>
     </modules>
 

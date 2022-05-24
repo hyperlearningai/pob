@@ -1,11 +1,11 @@
-package ai.hyperlearning.pob.jpa.repositories;
+package ai.hyperlearning.pob.core.jpa.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
 import ai.hyperlearning.pob.model.Framework;
 
 /**
- * Framework Repository
+ * Procurement Framework Repository
  *
  * @author jillurquddus
  * @since 0.0.1
