@@ -39,10 +39,10 @@ publishers:
         ssl: true
 pipelines:
     main:
-        enabled: true
+        enabled: false
         scheduler:
             enabled: false
-            cron: "0 0/20 * * * *"
+            cron: "0 0/30 * * * *"
 storage:
     rdbms:
         driverClassName: ${rdbms-driverClassName}

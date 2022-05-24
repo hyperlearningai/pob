@@ -29,7 +29,7 @@ public class MainPipelineSchedulerAzureFunctionHandler
     
     @FunctionName("mainPipelineFunction")
     public void run(
-            @TimerTrigger(name = "keepAliveTrigger", schedule = "0 0/20 * * * *") String timerInfo,
+            @TimerTrigger(name = "keepAliveTrigger", schedule = "0 0/30 * * * *") String timerInfo,
             ExecutionContext context) {
         context.getLogger().info(
                 "POB Main Pipeline Function triggered: " + timerInfo);
