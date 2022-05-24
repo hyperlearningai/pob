@@ -46,8 +46,8 @@
         <azure-spring-cloud-azure-dependencies.version>4.1.0</azure-spring-cloud-azure-dependencies.version>
         <azure-webapp-maven-plugin.version>2.5.0</azure-webapp-maven-plugin.version>
         <commons-io.version>2.11.0</commons-io.version>
-        <conf.bootstrap-properties.filename>bootstrap.yaml</conf.bootstrap-properties.filename>
-        <conf.application-properties.filename>application.yaml</conf.application-properties.filename>
+        <conf.bootstrap-properties.filename>bootstrap.yml</conf.bootstrap-properties.filename>
+        <conf.application-properties.filename>application.yml</conf.application-properties.filename>
         <guava.version>31.1-jre</guava.version>
         <java.version>11</java.version>
         <javax.activation.version>1.1.1</javax.activation.version>

@@ -49,4 +49,3 @@ storage:
         jdbcUrl: ${rdbms-jdbcUrl}
         username: ${rdbms-username}
         password: ${rdbms-password}
-    
