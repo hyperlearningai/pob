@@ -46,9 +46,10 @@
 
         <!-- Microsoft Azure Key Vault Secrets Spring Boot Starter -->
         <!-- Bootstrap configuration stored in Microsoft Azure Key Vault -->
+        <!-- Parent POM dependency - com.azure.spring:spring-cloud-azure-dependencies -->
         <dependency>
             <groupId>com.azure.spring</groupId>
-            <artifactId>azure-spring-boot-starter-keyvault-secrets</artifactId>
+            <artifactId>spring-cloud-azure-starter-keyvault-secrets</artifactId>
         </dependency>
 
         <!-- Spring Boot Starter Validation -->
@@ -71,6 +72,7 @@
         </dependency>
 
         <!-- Spring Cloud Starter Bootstrap -->
+        <!-- Parent POM dependency - com.azure.spring:spring-cloud-azure-dependencies -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
@@ -78,6 +80,7 @@
 
         <!-- Spring Cloud Starter Vault Config -->
         <!-- Bootstrap configuration stored in Hashicorp Vault -->
+        <!-- Parent POM dependency - com.azure.spring:spring-cloud-azure-dependencies -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-vault-config</artifactId>

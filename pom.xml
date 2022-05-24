@@ -39,23 +39,24 @@
     
     <!-- Properties and Dependency Versions -->
     <properties>
-        <azure-functions-java-library.version>1.4.2</azure-functions-java-library.version>
-        <azure-functions-maven-plugin.version>1.11.0</azure-functions-maven-plugin.version>
-        <azure-webapp-maven-plugin.version>1.14.0</azure-webapp-maven-plugin.version>
+        <azure-functions-java-library.version>2.0.1</azure-functions-java-library.version>
+        <azure-functions-maven-plugin.version>1.18.0</azure-functions-maven-plugin.version>
+        <azure-spring-cloud-azure-dependencies.version>4.1.0</azure-spring-cloud-azure-dependencies.version>
+        <azure-webapp-maven-plugin.version>2.5.0</azure-webapp-maven-plugin.version>
         <commons-io.version>2.11.0</commons-io.version>
-        <conf.application-properties.filename>pob.yaml</conf.application-properties.filename>
-        <conf.application-logging.filename>logback-spring.xml</conf.application-logging.filename>
-        <guava.version>30.1.1-jre</guava.version>
+        <conf.bootstrap-properties.filename>bootstrap.yaml</conf.bootstrap-properties.filename>
+        <conf.application-properties.filename>application.yaml</conf.application-properties.filename>
+        <guava.version>31.1-jre</guava.version>
         <java.version>11</java.version>
         <javax.activation.version>1.1.1</javax.activation.version>
-        <jsoup.version>1.14.2</jsoup.version>
-        <logback-classic.version>1.2.3</logback-classic.version>
+        <jsoup.version>1.15.1</jsoup.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <okhttp.version>4.9.1</okhttp.version>
+        <okhttp.version>4.9.3</okhttp.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <revision>1.0.0</revision>
-        <spring-cloud-function-dependencies.version>3.1.3</spring-cloud-function-dependencies.version>
+        <revision>2.0.0</revision>
+        <spring-cloud-dependencies.version>2021.0.2</spring-cloud-dependencies.version>
+        <spring-cloud-starter-aws-secrets-manager-config.version>2.2.6.RELEASE</spring-cloud-starter-aws-secrets-manager-config.version>
     </properties>
     
     <!-- Project Dependencies -->
@@ -94,11 +95,20 @@
                 <version>${commons-io.version}</version>
             </dependency>
             
-            <!-- Azure Functions -->
+            <!-- Azure Functions Java Library -->
             <dependency>
                 <groupId>com.microsoft.azure.functions</groupId>
                 <artifactId>azure-functions-java-library</artifactId>
                 <version>${azure-functions-java-library.version}</version>
+            </dependency>
+            
+            <!-- Azure Spring Cloud Azure Dependencies POM -->
+            <dependency>
+                <groupId>com.azure.spring</groupId>
+                <artifactId>spring-cloud-azure-dependencies</artifactId>
+                <version>${azure-spring-cloud-azure-dependencies.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             
             <!-- Guava -->
@@ -122,13 +132,6 @@
                 <version>${jsoup.version}</version>
             </dependency>
             
-            <!-- Logback -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback-classic.version}</version>
-            </dependency>
-            
             <!-- OKHttp -->
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>
@@ -139,57 +142,24 @@
             <!-- POB -->
             <dependency>
                 <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-common</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-model</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-utils</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-jpa</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-parsers</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-publishers</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-service</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-app</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>ai.hyperlearning.pob</groupId>
-                <artifactId>pob-function-app</artifactId>
+                <artifactId>pob-confiuration</artifactId>
                 <version>${revision}</version>
             </dependency>
             
-            <!-- Spring Cloud -->
+            <!-- Spring Cloud Dependencies POM -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-function-dependencies</artifactId>
-                <version>${spring-cloud-function-dependencies.version}</version>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            
+            <!-- Spring Cloud Starter AWS Secrets Manager  -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-aws-secrets-manager-config</artifactId>
+                <version>${spring-cloud-starter-aws-secrets-manager-config.version}</version>
             </dependency>
         
         </dependencies>

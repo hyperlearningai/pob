@@ -46,11 +46,4 @@ storage:
         jdbcUrl: 
         username: 
         password: 
-web:
-    azure:
-        webapps:
-            port: 80
-    aws:
-        beanstalk:
-            port: 5000
     
