@@ -39,6 +39,8 @@
     
     <!-- Properties and Dependency Versions -->
     <properties>
+        <aws-lambda-java-core.version>1.2.1</aws-lambda-java-core.version>
+        <aws-lambda-java-events.version>3.11.0</aws-lambda-java-events.version>
         <azure-functions-java-library.version>2.0.1</azure-functions-java-library.version>
         <azure-functions-maven-plugin.version>1.18.0</azure-functions-maven-plugin.version>
         <azure-spring-cloud-azure-dependencies.version>4.1.0</azure-spring-cloud-azure-dependencies.version>
@@ -93,6 +95,20 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            
+            <!-- AWS Lambda Core -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-lambda-java-core</artifactId>
+                <version>${aws-lambda-java-core.version}</version>
+            </dependency>
+            
+            <!-- AWS Lambda Events -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-lambda-java-events</artifactId>
+                <version>${aws-lambda-java-events.version}</version>
             </dependency>
             
             <!-- Azure Functions Java Library -->
