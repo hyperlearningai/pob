@@ -47,6 +47,10 @@
         <!-- POB -->
         <dependency>
             <groupId>ai.hyperlearning.pob</groupId>
+            <artifactId>pob-configuration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ai.hyperlearning.pob</groupId>
             <artifactId>pob-jpa</artifactId>
         </dependency>
         <dependency>
