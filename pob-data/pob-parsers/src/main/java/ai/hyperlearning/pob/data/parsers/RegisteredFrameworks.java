@@ -18,7 +18,7 @@ import ai.hyperlearning.pob.model.Framework;
  */
 
 @Component
-@PropertySource(value = "classpath:application.yaml", 
+@PropertySource(value = "classpath:application.yml", 
     factory = YamlPropertySourceFactory.class)
 @ConfigurationProperties
 @Validated
