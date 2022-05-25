@@ -50,6 +50,12 @@
             <artifactId>okhttp</artifactId>
         </dependency>
         
+        <!-- OpenCSV -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+        </dependency>
+        
         <!-- POB -->
         <dependency>
             <groupId>ai.hyperlearning.pob</groupId>
