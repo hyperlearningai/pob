@@ -41,10 +41,10 @@ public class SlackPublisher extends OpportunityPublisher {
     private static final String MEDIA_TYPE = 
             org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
     
-    // Message properties and formatting
+    // Message content and formatting
     private static final String JSON_PLACEHOLDER_SLACK_CHANNEL = 
             "[SLACK_CHANNEL]";
-    private static final String POST_REQUEST_JSON_BODY_TEMPLATE = 
+    private static final String REQUEST_BODY_JSON_TEMPLATE = 
             "{" + 
                     "\"channel\": \"" + JSON_PLACEHOLDER_SLACK_CHANNEL + "\", " +
                     "\"text\": \"" + 
@@ -112,13 +112,12 @@ public class SlackPublisher extends OpportunityPublisher {
      * Create the Slack message JSON object
      * @param opportunity
      * @param channel
-     * @param webhook
      * @return
      */
     
     private String buildMessage(Opportunity opportunity, String channel) {
         
-        return POST_REQUEST_JSON_BODY_TEMPLATE
+        return REQUEST_BODY_JSON_TEMPLATE
                 .replace(JSON_PLACEHOLDER_SLACK_CHANNEL, channel)
                 .replace(CommonPublisherProperties
                             .JSON_PLACEHOLDER_OPPORTUNITY_TITLE, 
