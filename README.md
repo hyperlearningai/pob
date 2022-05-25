@@ -1,2 +1,2 @@
-# Public Opportunities Bot (POB)
-Automated parsing, indexing and publishing of public sector contract opportunities.
+# Public Opportunities Bot
+Fully automated collation and notification of public sector procurement opportunities.
