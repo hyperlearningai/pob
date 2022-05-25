@@ -2,6 +2,7 @@ package ai.hyperlearning.pob.data.pipelines.main;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import ai.hyperlearning.pob.core.jpa.repositories.FrameworkRepository;
 import ai.hyperlearning.pob.core.jpa.repositories.OpportunityRepository;
 import ai.hyperlearning.pob.data.parsers.RegisteredFrameworks;
+import ai.hyperlearning.pob.data.publishers.OpportunityPublisher;
 import ai.hyperlearning.pob.data.publishers.RegisteredPublishers;
 import ai.hyperlearning.pob.model.Framework;
 import ai.hyperlearning.pob.model.Opportunity;
@@ -54,6 +56,9 @@ public class MainPipeline {
     
     @Value("${pipelines.main.enabled:true}")
     private Boolean enabled;
+    
+    // Map to hold publisher implementation objects
+    private Map<String, OpportunityPublisher> publisherImplementations;
     
     @PostConstruct
     public void logRegisteredFrameworks() {
@@ -97,11 +102,13 @@ public class MainPipeline {
             long enabledFrameworksCount = frameworks.stream()
                     .filter(Framework::isEnabled)
                     .count();
-            LOGGER.debug("Found {} enabled frameworks.", enabledFrameworksCount);
+            LOGGER.debug("Found {} enabled frameworks.", 
+                    enabledFrameworksCount);
             if (!frameworks.isEmpty() && enabledFrameworksCount > 0) {
                 
                 // Persist all registered frameworks to the RDBMS
-                LOGGER.debug("Persisting all registered frameworks to the RDBMS.");
+                LOGGER.debug("Persisting all registered frameworks "
+                        + "to the RDBMS.");
                 frameworkRepository.saveAll(frameworks);
                 
                 // Iterate through all registered frameworks
@@ -207,7 +214,8 @@ public class MainPipeline {
             long enabledPublishersCount = publishers.stream()
                     .filter(Publisher::isEnabled)
                     .count();
-            LOGGER.debug("Found {} enabled publishers.", enabledPublishersCount);
+            LOGGER.debug("Found {} enabled publishers.", 
+                    enabledPublishersCount);
             if ( !publishers.isEmpty() && enabledPublishersCount > 0 ) {
             
                 // Get all unpublished opportunities and iterate through them
@@ -215,16 +223,21 @@ public class MainPipeline {
                         opportunityRepository.findNonPublished();
                 LOGGER.debug("Found {} unpublished opportunities.", 
                         unpublishedOpportunities.size());
-                for (Opportunity unpublishedOpportunity : 
-                    unpublishedOpportunities) {
+                if ( !unpublishedOpportunities.isEmpty() ) {
                     
-                    // Execute all registered publishers for the
-                    // current unpublished opporunity
-                    executePublishers(unpublishedOpportunity, publishers, 
-                            enabledPublishersCount);
+                    // Instantiate all registered publisher implementations
+                    instantiatePublisherImplementations(publishers);
                     
-                    // Pause between publishing new opportunities
-                    TimeUnit.SECONDS.sleep(PUBLICATION_DELAY);
+                    // Execute all registered publisher implementations
+                    for (Opportunity unpublishedOpportunity : 
+                        unpublishedOpportunities) {
+                        
+                        // Pause between publishing new opportunities
+                        executePublishers(unpublishedOpportunity, publishers, 
+                                enabledPublishersCount);
+                        TimeUnit.SECONDS.sleep(PUBLICATION_DELAY);
+                        
+                    }
                     
                 }
                 
@@ -234,13 +247,46 @@ public class MainPipeline {
             LOGGER.info("Finished running all registered publishers.");
             
         } catch (InterruptedException ie) {
-            LOGGER.warn("Main pipeline interrupted during publication stage.", ie);
+            LOGGER.warn("Main pipeline interrupted during "
+                    + "publication stage.", ie);
             Thread.currentThread().interrupt();
         } catch (Exception e) {
             LOGGER.error("An error was encountered whilst attempting "
                     + "to run all registered publishers.", e);
         }
         
+    }
+    
+    /**
+     * Instantiate all registered and enabled publisher implementations
+     * @param publishers
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     */
+    
+    private void instantiatePublisherImplementations(
+            List<Publisher> publishers) 
+            throws ClassNotFoundException, InstantiationException, 
+            IllegalAccessException, IllegalArgumentException, 
+            InvocationTargetException, NoSuchMethodException, 
+            SecurityException {
+        publisherImplementations = new LinkedHashMap<>();
+        for (Publisher publisher : publishers) {
+            if (publisher.isEnabled()) {
+                Class<?> publisherClass = Class.forName(publisher
+                        .getPublisherClass());
+                Object publisherInstance = publisherClass
+                        .getDeclaredConstructor(Map.class)
+                        .newInstance(publisher.getProperties());
+                publisherImplementations.put(publisher.getId(), 
+                        (OpportunityPublisher) publisherInstance);
+            }
+        }
     }
     
     /**
@@ -255,14 +301,17 @@ public class MainPipeline {
         
         try {
             
-            // Iterate through all registered publishers
+            // Iterate through all registered and enabled publishers
             int publishedCount = 0;
             for (Publisher publisher : publishers) {
                 if (publisher.isEnabled()) {
                     
-                    // Execute the publish method of the 
-                    // relevant publisher class
-                    executePublisherMethod(unpublishedOpportunity, publisher);
+                    // Get the publisher implementation object
+                    OpportunityPublisher publisherInstance = 
+                            publisherImplementations.get(publisher.getId());
+                    
+                    // Execute the publisher implementation
+                    publisherInstance.publish(unpublishedOpportunity);
                     publishedCount++;
                     
                 }
@@ -286,37 +335,6 @@ public class MainPipeline {
                     + "-" + unpublishedOpportunity.getUri(), e);
         }
         
-    }
-    
-    /**
-     * Execute the publish method of the relevant publisher class
-     * @param unpublishedOpportunity
-     * @param publisher
-     * @throws IllegalAccessException
-     * @throws IllegalArgumentException
-     * @throws InvocationTargetException
-     * @throws ClassNotFoundException
-     * @throws InstantiationException
-     * @throws NoSuchMethodException
-     * @throws SecurityException
-     */
-    
-    private void executePublisherMethod(Opportunity unpublishedOpportunity, 
-            Publisher publisher) 
-                    throws IllegalAccessException, IllegalArgumentException, 
-                    InvocationTargetException, ClassNotFoundException, 
-                    InstantiationException, NoSuchMethodException, 
-                    SecurityException {
-        Class<?> publisherClass = Class.forName(publisher
-                .getPublisherClass());
-        Object publisherInstance = publisherClass
-                .getDeclaredConstructor(Map.class)
-                .newInstance(publisher.getProperties());
-        Method publisherMethod = publisherClass
-                .getDeclaredMethod("publish", 
-                        Opportunity.class);
-        publisherMethod.invoke(publisherInstance, 
-                unpublishedOpportunity);
     }
 
 }
