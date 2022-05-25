@@ -15,7 +15,7 @@ public class CommonPublisherProperties {
     }
     
     // Common message content and formatting
-    public static final int MESSAGE_DASH_CHARACTER_LENGTH = 100;
+    public static final int MESSAGE_DASH_CHARACTER_LENGTH = 30;
     public static final String UNKNOWN_TEXT_VALUE = "Unknown";
     public static final String JSON_PLACEHOLDER_OPPORTUNITY_TITLE = 
             "[OPPORTUNITY_TITLE]";
