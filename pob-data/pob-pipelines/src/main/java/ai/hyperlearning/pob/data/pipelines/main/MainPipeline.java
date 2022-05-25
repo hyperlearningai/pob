@@ -39,9 +39,6 @@ public class MainPipeline {
     private static final Logger LOGGER = 
             LoggerFactory.getLogger(MainPipeline.class);
     
-    // Delay between publications in seconds
-    private static final int PUBLICATION_DELAY = 10;
-    
     @Autowired
     private RegisteredFrameworks registeredFrameworks;
     
@@ -55,7 +52,13 @@ public class MainPipeline {
     private OpportunityRepository opportunityRepository;
     
     @Value("${pipelines.main.enabled:true}")
-    private Boolean enabled;
+    private Boolean pipelineEnabled;
+    
+    @Value("${pipelines.main.bulkPublicationDelay.enabled:true}")
+    private Boolean publicationDelayEnabled;
+    
+    @Value("${pipelines.main.bulkPublicationDelay.duration:10}")
+    private Integer publicationDelayDuration;
     
     // Map to hold publisher implementation objects
     private Map<String, OpportunityPublisher> publisherImplementations;
@@ -77,7 +80,7 @@ public class MainPipeline {
      */
     
     public void run() {
-        if (Boolean.TRUE.equals(enabled)) {
+        if (Boolean.TRUE.equals(pipelineEnabled)) {
             LOGGER.info("Started the POB Main Pipeline.");
             runRegisteredParsers();
             runRegisteredPublishers();
@@ -231,11 +234,12 @@ public class MainPipeline {
                     // Execute all registered publisher implementations
                     for (Opportunity unpublishedOpportunity : 
                         unpublishedOpportunities) {
-                        
-                        // Pause between publishing new opportunities
                         executePublishers(unpublishedOpportunity, publishers, 
                                 enabledPublishersCount);
-                        TimeUnit.SECONDS.sleep(PUBLICATION_DELAY);
+                        
+                        // Pause between publishing new opportunities
+                        if ( Boolean.TRUE.equals(publicationDelayEnabled) )
+                            TimeUnit.SECONDS.sleep(publicationDelayDuration);
                         
                     }
                     
