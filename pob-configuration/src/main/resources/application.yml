@@ -17,8 +17,13 @@ frameworks:
       filter: true
       keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing language' 
 publishers:
-    - id: slack
+    - id: csv
       enabled: true
+      publisherClass: ai.hyperlearning.pob.data.publishers.csv.CsvPublisher
+      properties:
+        path: ${java.io.tmpdir}/pob.csv
+    - id: slack
+      enabled: false
       publisherClass: ai.hyperlearning.pob.data.publishers.slack.SlackPublisher
       properties:
         channel: ${slack-channel}
@@ -39,10 +44,13 @@ publishers:
         ssl: true
 pipelines:
     main:
-        enabled: false
+        enabled: true
         scheduler:
             enabled: false
-            cron: "0 0/30 * * * *"
+            cron: "0 0/20 * * * *"
+        bulkPublicationDelay:
+            enabled: true
+            duration: 10
 storage:
     rdbms:
         driverClassName: ${rdbms-driverClassName}
