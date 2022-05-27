@@ -4,18 +4,20 @@ frameworks:
       name: 'Digital Outcomes and Specialists Framework'
       enabled: true
       baseUrl: https://www.digitalmarketplace.service.gov.uk
-      opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
       parserClass: ai.hyperlearning.pob.data.parsers.dos.DosParser 
       filter: false
       keywords: ''
+      properties:
+        opportunitiesUrl: https://www.digitalmarketplace.service.gov.uk/digital-outcomes-and-specialists/opportunities?q=&statusOpenClosed=open
     - id: cf
       name: 'Contracts Finder'
       enabled: true
       baseUrl: https://www.contractsfinder.service.gov.uk
-      opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
       parserClass: ai.hyperlearning.pob.data.parsers.cf.ContractsFinderParser
       filter: true
-      keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing language' 
+      keywords: 'data software java python artificial intelligence machine learning training architecture engineering digital transformation computing language'
+      properties:
+        opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
 publishers:
     - id: csv
       enabled: true

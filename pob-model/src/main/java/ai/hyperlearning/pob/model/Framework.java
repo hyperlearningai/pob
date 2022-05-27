@@ -1,6 +1,8 @@
 package ai.hyperlearning.pob.model;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -39,10 +42,6 @@ public class Framework implements Serializable {
     private String baseUrl;
 
     @NotNull
-    @Column(length = 1000)
-    private String opportunitiesUrl;
-
-    @NotNull
     @Column(length = 250)
     private String parserClass;
 
@@ -51,25 +50,12 @@ public class Framework implements Serializable {
 
     @Column(length = 250)
     private String keywords;
+    
+    @Transient
+    private transient Map<String, Object> properties = new LinkedHashMap<>();
 
     @OneToMany(mappedBy = "framework")
     private Set<Opportunity> opportunities;
-
-    public Framework() {
-
-    }
-
-    public Framework(String id, String name, boolean enabled, String baseUrl,
-            String opportunitiesUrl, String parserClass, boolean filter, String keywords) {
-        this.id = id;
-        this.name = name;
-        this.enabled = enabled;
-        this.baseUrl = baseUrl;
-        this.opportunitiesUrl = opportunitiesUrl;
-        this.parserClass = parserClass;
-        this.filter = filter;
-        this.keywords = keywords;
-    }
 
     public String getId() {
         return id;
@@ -103,14 +89,6 @@ public class Framework implements Serializable {
         this.baseUrl = baseUrl;
     }
 
-    public String getOpportunitiesUrl() {
-        return opportunitiesUrl;
-    }
-
-    public void setOpportunitiesUrl(String opportunitiesUrl) {
-        this.opportunitiesUrl = opportunitiesUrl;
-    }
-
     public String getParserClass() {
         return parserClass;
     }
@@ -133,6 +111,14 @@ public class Framework implements Serializable {
 
     public void setKeywords(String keywords) {
         this.keywords = keywords;
+    }
+    
+    public Map<String, Object> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(Map<String, Object> properties) {
+        this.properties = properties;
     }
 
     public Set<Opportunity> getOpportunities() {
@@ -176,10 +162,9 @@ public class Framework implements Serializable {
                 + "name=" + name + ", " 
                 + "enabled=" + enabled + ", " 
                 + "baseUrl=" + baseUrl + ", " 
-                + "opportunitiesUrl=" + opportunitiesUrl + ", "
                 + "parserClass=" + parserClass + ", " 
                 + "filter=" + filter + ", " 
-                + "keywords="+ keywords 
+                + "keywords="+ keywords
                 + "]";
     }
 

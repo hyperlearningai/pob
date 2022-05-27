@@ -33,6 +33,9 @@ public class ContractsFinderParser extends FrameworkParser {
     private static final Logger LOGGER = 
             LoggerFactory.getLogger(ContractsFinderParser.class);
     
+    // Parser properties
+    private static final String OPPORTUNITIES_URL_PROPERTY_KEY = "opportunitiesUrl";
+    
     // Contracts Finder web elements
     private static final String FORM_TOKEN_CSS_QUERY = "input[name=form_token]";
     private static final String SEARCH_RESULTS_CSS_QUERY = "div.search-result";
@@ -55,7 +58,6 @@ public class ContractsFinderParser extends FrameworkParser {
     private static final String FORM_DATA_SORT = "notices.cf_published_date:DESC";
     private static final String FORM_DATA_ADV_SEARCH = "";
     
-    
     public ContractsFinderParser(Framework framework) {
         super(framework);
     }
@@ -70,7 +72,8 @@ public class ContractsFinderParser extends FrameworkParser {
             
             // Get the form token and cookies from the search form page
             Connection.Response formPageResponse = Jsoup.connect(
-                    getFramework().getOpportunitiesUrl())
+                    (String) getFramework().getProperties()
+                        .get(OPPORTUNITIES_URL_PROPERTY_KEY))
                     .method(Method.GET)
                     .execute();
             Document formPageDocument = formPageResponse.parse();
@@ -90,7 +93,8 @@ public class ContractsFinderParser extends FrameworkParser {
             // Submit a POST request with the relevant 
             // form data, form token, cookies and keyword filtering
             Connection.Response formPostResponse = Jsoup.connect(
-                    getFramework().getOpportunitiesUrl())
+                    (String) getFramework().getProperties()
+                        .get(OPPORTUNITIES_URL_PROPERTY_KEY))
                     .header("Content-Type", 
                             MediaType.APPLICATION_FORM_URLENCODED_VALUE 
                                 + ";charset=UTF-8")

@@ -30,6 +30,9 @@ public class DosParser extends FrameworkParser {
     private static final Logger LOGGER = 
             LoggerFactory.getLogger(DosParser.class);
     
+    // Parser properties
+    private static final String OPPORTUNITIES_URL_PROPERTY_KEY = "opportunitiesUrl";
+    
     // DOS framework web elements
     private static final String SEARCH_RESULTS_CSS_QUERY = "li.app-search-result";
     private static final String GENERAL_CSS_QUERY = "ul.govuk-list";
@@ -125,7 +128,8 @@ public class DosParser extends FrameworkParser {
     
     private String generateUrl() {
         
-        String frameworkUrl = getFramework().getOpportunitiesUrl();
+        String frameworkUrl = (String) getFramework().getProperties()
+                .get(OPPORTUNITIES_URL_PROPERTY_KEY);
         if ( getFramework().isFilter() && 
                 !getFramework().getKeywords().isBlank() ) {
             LOGGER.debug("DOS framework filtering enabled.");
@@ -133,7 +137,8 @@ public class DosParser extends FrameworkParser {
             String keywords = getFramework().getKeywords();
             String keywordsQueryParams = 
                     HttpUtils.toGetQueryParams(keywords);
-            frameworkUrl = getFramework().getOpportunitiesUrl()
+            frameworkUrl = ((String) getFramework().getProperties()
+                    .get(OPPORTUNITIES_URL_PROPERTY_KEY))
                     .replace("?q=&", 
                             "?q=" + keywordsQueryParams + "&");
         }

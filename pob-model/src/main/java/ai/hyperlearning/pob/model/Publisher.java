@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.persistence.Transient;
+
 /**
  * Publisher Model
  *
@@ -17,19 +19,9 @@ public class Publisher implements Serializable {
     private String id;
     private boolean enabled;
     private String publisherClass;
-    private Map<String, Object> properties = new LinkedHashMap<>();
-
-    public Publisher() {
-
-    }
-
-    public Publisher(String id, boolean enabled, String publisherClass,
-            Map<String, Object> properties) {
-        this.id = id;
-        this.enabled = enabled;
-        this.publisherClass = publisherClass;
-        this.properties = properties;
-    }
+    
+    @Transient
+    private transient Map<String, Object> properties = new LinkedHashMap<>();
 
     public String getId() {
         return id;
@@ -93,8 +85,7 @@ public class Publisher implements Serializable {
         return "Publisher [" 
                 + "id=" + id + ", " 
                 + "enabled=" + enabled + ", "
-                + "publisherClass=" + publisherClass + ", "
-                + "properties=" + properties 
+                + "publisherClass=" + publisherClass
                 + "]";
     }
 
