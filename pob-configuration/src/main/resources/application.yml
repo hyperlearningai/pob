@@ -28,6 +28,11 @@ publishers:
       properties:
         channel: ${slack-channel}
         webhook: ${slack-webhook}
+    - id: microsoft-teams
+      enabled: false
+      publisherClass: ai.hyperlearning.pob.data.publishers.microsoft.MicrosoftTeamsPublisher
+      properties:
+        webhook: ${microsoft-teams-webhook}
     - id: google-chat
       enabled: false
       publisherClass: ai.hyperlearning.pob.data.publishers.google.GoogleChatPublisher
