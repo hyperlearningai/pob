@@ -20,7 +20,7 @@ frameworks:
         opportunitiesUrl: https://www.contractsfinder.service.gov.uk/Search/Results
 publishers:
     - id: csv
-      enabled: true
+      enabled: false
       publisherClass: ai.hyperlearning.pob.data.publishers.csv.CsvPublisher
       properties:
         path: ${java.io.tmpdir}/pob.csv
@@ -57,7 +57,7 @@ pipelines:
             cron: "0 0/20 * * * *"
         bulkPublicationDelay:
             enabled: true
-            duration: 10
+            duration: 5
 storage:
     rdbms:
         driverClassName: ${rdbms-driverClassName}
