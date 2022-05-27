@@ -5,7 +5,6 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ai.hyperlearning.pob.core.utils.JsonUtils;
 import ai.hyperlearning.pob.data.publishers.CommonPublisherProperties;
 import ai.hyperlearning.pob.data.publishers.OpportunityPublisher;
 import ai.hyperlearning.pob.data.publishers.exceptions.OpportunityPublishingException;
@@ -70,7 +69,8 @@ public class SlackPublisher extends OpportunityPublisher {
             String webhook = (String) getProperties().get(WEBHOOK_PROPERTY_KEY);
             
             // Create the Slack message as a JSON object
-            String json = buildMessage(opportunity, channel);
+            String json = buildMessage(REQUEST_BODY_JSON_TEMPLATE, opportunity)
+                    .replace(JSON_PLACEHOLDER_SLACK_CHANNEL, channel);
             
             // Create the HTTP POST request
             if (client == null)
@@ -106,54 +106,6 @@ public class SlackPublisher extends OpportunityPublisher {
             }
             
         }
-        
-    }
-    
-    /**
-     * Create the Slack message JSON object
-     * @param opportunity
-     * @param channel
-     * @return
-     */
-    
-    private String buildMessage(Opportunity opportunity, String channel) {
-        
-        return REQUEST_BODY_JSON_TEMPLATE
-                .replace(JSON_PLACEHOLDER_SLACK_CHANNEL, channel)
-                .replace(CommonPublisherProperties
-                            .JSON_PLACEHOLDER_OPPORTUNITY_TITLE, 
-                        JsonUtils.cleanValueString(
-                                opportunity.getTitle()))
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_BUYER, 
-                        JsonUtils.cleanValueString(
-                                opportunity.getBuyer()))
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_FRAMEWORK_NAME, 
-                        JsonUtils.cleanValueString(
-                                opportunity.getFramework().getName()))
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_DATE_PUBLISHED, 
-                        opportunity.getDatePublished() != null ? 
-                                opportunity.getDatePublished().toString() : 
-                                    CommonPublisherProperties.
-                                        UNKNOWN_TEXT_VALUE)
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_DATE_CLOSING, 
-                        opportunity.getDateClosing() != null ? 
-                                opportunity.getDateClosing().toString() : 
-                                    CommonPublisherProperties.
-                                        UNKNOWN_TEXT_VALUE)
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_SUMMARY, 
-                        JsonUtils.cleanValueString(
-                                opportunity.getSummary()))
-                .replace(CommonPublisherProperties.
-                            JSON_PLACEHOLDER_OPPORTUNITY_URL, 
-                        opportunity.getUrl() != null ? 
-                                opportunity.getUrl() : 
-                                    CommonPublisherProperties.
-                                        UNKNOWN_TEXT_VALUE);
         
     }
 
