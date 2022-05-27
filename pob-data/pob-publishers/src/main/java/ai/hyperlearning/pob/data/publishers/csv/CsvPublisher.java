@@ -37,6 +37,7 @@ public class CsvPublisher extends OpportunityPublisher {
         super(properties);
     }
     
+    @Override
     public void publish(Opportunity opportunity) {
         
         // Check whether the file exists before creating the OpenCSV writer

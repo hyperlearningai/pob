@@ -58,6 +58,7 @@ public class SlackPublisher extends OpportunityPublisher {
         client = new OkHttpClient();
     }
     
+    @Override
     public void publish(Opportunity opportunity) {
         
         LOGGER.info("Started the Slack publisher.");

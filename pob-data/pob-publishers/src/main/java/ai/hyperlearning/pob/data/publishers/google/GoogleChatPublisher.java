@@ -52,6 +52,7 @@ public class GoogleChatPublisher extends OpportunityPublisher {
         client = new OkHttpClient();
     }
     
+    @Override
     public void publish(Opportunity opportunity) {
         
         LOGGER.info("Started the Google Chat publisher.");
