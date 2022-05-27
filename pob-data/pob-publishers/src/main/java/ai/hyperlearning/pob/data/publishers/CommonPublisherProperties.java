@@ -16,6 +16,9 @@ public class CommonPublisherProperties {
     
     // Common message content and formatting
     public static final int MESSAGE_DASH_CHARACTER_LENGTH = 30;
+    public static final String POB_ICON = 
+            "https://avatars.slack-edge.com/2021-07-19/2282480381718_"
+            + "db5803e467659a04f9c5_512.png";
     public static final String UNKNOWN_TEXT_VALUE = "Unknown";
     public static final String JSON_PLACEHOLDER_OPPORTUNITY_TITLE = 
             "[OPPORTUNITY_TITLE]";
